@@ -4,3 +4,7 @@ require:
 
 AllCops:
   NewCops: enable
+
+Metrics/BlockLength:
+  Exclude:
+    - config/environments/development.rb
