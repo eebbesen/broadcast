@@ -1,7 +1,30 @@
-# README
+# Broadcast
+Send SMS to distinct groups of recipients
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+
+# Developers
+## Prerequisities
+* Have a PostgreSQL instance available
+
+## Setup
+```bash
+bundle install
+bin/rails db:create
+```
+
+## Tests
+```bash
+rspec
+```
+
+## Linters
+```
+bundle exec rubocop
+bundle exec brakeman
+bundle exec bundler-audit
+bundle exec reek
+```
+
 
 Things you may want to cover:
 
