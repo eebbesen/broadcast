@@ -1,9 +1,11 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
-RSpec.describe Message, type: :model do
+RSpec.describe Message do
   describe 'validations' do
-    it { should belong_to :user }
-    it { should validate_presence_of :content }
-    it { should validate_presence_of :status }
+    it { is_expected.to belong_to :user }
+    it { is_expected.to validate_presence_of :content }
+    it { is_expected.to validate_presence_of :status }
   end
 end

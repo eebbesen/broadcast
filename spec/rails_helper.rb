@@ -65,7 +65,13 @@ RSpec.configure do |config|
   # arbitrary gems may also be filtered via:
   # config.filter_gems_from_backtrace("gem name")
 
+  # devise
+  config.include Devise::Test::IntegrationHelpers, type: :request
+  config.include Devise::Test::IntegrationHelpers, type: :view
+
+  # factory_bot
   config.include FactoryBot::Syntax::Methods
+  config.before(:suite) { FactoryBot.reload } # in case of spring issues
 end
 
 Shoulda::Matchers.configure do |config|

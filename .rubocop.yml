@@ -1,10 +1,32 @@
 require:
+  - rubocop-factory_bot
   - rubocop-rails
   - rubocop-rspec
 
 AllCops:
   NewCops: enable
 
+Layout/LineLength:
+  Exclude:
+    - config/initializers/devise.rb
+
 Metrics/BlockLength:
   Exclude:
     - config/environments/development.rb
+
+Metrics/MethodLength:
+  Exclude:
+    - app/controllers/messages_controller.rb
+
+Rails/I18nLocaleTexts:
+  Enabled: false
+
+RSpec/ExampleLength:
+  Enabled: false
+
+RSpec/MultipleExpectations:
+  Max: 5
+
+Style/Documentation:
+  Exclude:
+    - db/migrate/*

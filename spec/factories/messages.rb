@@ -1,6 +1,8 @@
+# frozen_string_literal: true
+
 FactoryBot.define do
   factory :message do
-    user { create :user }
+    user
 
     factory :sent_message do
       content { 'Parks information' }
