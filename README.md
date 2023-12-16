@@ -4,13 +4,22 @@ Send SMS to distinct groups of recipients
 
 # Developers
 ## Prerequisities
-* Have a PostgreSQL instance available
+* Have a PostgreSQL instance available or modify the application to use another database
+  * replace `pg` references in the Gemfile
+  * update `config/database.yml`
 
 ## Setup
 ```bash
 bundle install
 bin/rails db:create
 ```
+
+Create an admin user via the Rails console
+```ruby
+Admin.create!(email: 'you@example.com', password: 'S3Kr1t!')
+```
+
+Create users via http://localhost:3000/users/sign_in or via the Rails console
 
 ## Tests
 ```bash
