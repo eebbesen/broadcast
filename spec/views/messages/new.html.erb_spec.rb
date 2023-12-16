@@ -5,8 +5,8 @@ require 'rails_helper'
 RSpec.describe 'messages/new' do
   before do
     assign(:message, Message.new(
-                       content: 'MyString',
-                       status: 'MyString',
+                       content: 'Waste collection changes for the holidays',
+                       status: Message.statuses[:unsent],
                        user: nil
                      ))
   end

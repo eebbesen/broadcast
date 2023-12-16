@@ -21,7 +21,7 @@ RSpec.describe '/messages' do
   # adjust the attributes here as well.
   let(:valid_attributes) do
     # { content: 'Park activities this month', status: 'SCHEDULED', user: user }
-    { content: 'Park activities this month', status: 'SCHEDULED', user_id: user.id }
+    { content: 'Park activities this month', status: Message.statuses[:scheduled], user_id: user.id }
   end
 
   let(:invalid_attributes) do
@@ -94,7 +94,7 @@ RSpec.describe '/messages' do
   describe 'PATCH /update' do
     context 'with valid parameters' do
       let(:new_attributes) do
-        { content: 'Updated content', status: 'SCHEDULED', user_id: user.id }
+        { content: 'Updated content', status: Message.statuses[:scheduled], user_id: user.id }
       end
 
       it 'updates the requested message' do
