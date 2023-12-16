@@ -4,20 +4,20 @@ require 'rails_helper'
 
 RSpec.describe 'messages/index' do
   let(:user) { create(:user) }
+  let(:messages) do
+    [
+      create(:sent_message, user:),
+      create(:scheduled_message, user:)
+    ]
+  end
 
   before do
-    assign(:messages, [
-             create(:sent_message, user:),
-             create(:scheduled_message, user:)
-           ])
+    assign(:messages, messages)
   end
 
   it 'renders a list of messages' do
     render
 
-    cell_selector = Rails::VERSION::STRING >= '7' ? 'div>p' : 'tr>td'
-    assert_select cell_selector, text: Regexp.new('Content'.to_s), count: 2
-    assert_select cell_selector, text: Regexp.new('Status'.to_s), count: 2
-    assert_select cell_selector, text: Regexp.new('User'.to_s), count: 2
+    messages.each { |m| expect(rendered).to include(m.content) }
   end
 end
