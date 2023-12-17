@@ -24,9 +24,13 @@ RSpec.describe '/messages' do
     { content: 'Park activities this month', status: Message.statuses[:scheduled], user_id: user.id }
   end
 
+  let(:valid_create_attributes) { { content: 'Park activities this month' } }
+
   let(:invalid_attributes) do
     { status: nil }
   end
+
+  let(:message) { create(:sent_message, user:) }
 
   before do
     sign_in user
@@ -34,7 +38,6 @@ RSpec.describe '/messages' do
 
   describe 'GET /index' do
     it 'renders a successful response' do
-      Message.create! valid_attributes
       get messages_url
       expect(response).to be_successful
     end
@@ -42,7 +45,6 @@ RSpec.describe '/messages' do
 
   describe 'GET /show' do
     it 'renders a successful response' do
-      message = Message.create! valid_attributes
       get message_url(message)
       expect(response).to be_successful
     end
@@ -57,7 +59,6 @@ RSpec.describe '/messages' do
 
   describe 'GET /edit' do
     it 'renders a successful response' do
-      message = Message.create! valid_attributes
       get edit_message_url(message)
       expect(response).to be_successful
     end
@@ -67,7 +68,7 @@ RSpec.describe '/messages' do
     context 'with valid parameters' do
       it 'creates a new Message' do
         expect do
-          post messages_url, params: { message: valid_attributes }
+          post messages_url, params: { message: valid_create_attributes }
         end.to change(Message, :count).by(1)
       end
 
@@ -98,14 +99,12 @@ RSpec.describe '/messages' do
       end
 
       it 'updates the requested message' do
-        message = Message.create! valid_attributes
         patch message_url(message), params: { message: new_attributes }
         message.reload
         expect(message.content).to eq(new_attributes[:content])
       end
 
       it 'redirects to the message' do
-        message = Message.create! valid_attributes
         patch message_url(message), params: { message: new_attributes }
         message.reload
         expect(response).to redirect_to(message_url(message))
@@ -114,7 +113,6 @@ RSpec.describe '/messages' do
 
     context 'with invalid parameters' do
       it "renders a response with 422 status (i.e. to display the 'edit' template)" do
-        message = Message.create! valid_attributes
         patch message_url(message), params: { message: invalid_attributes }
         expect(response).to have_http_status(:unprocessable_entity)
       end
@@ -123,14 +121,12 @@ RSpec.describe '/messages' do
 
   describe 'DELETE /destroy' do
     it 'destroys the requested message' do
-      message = Message.create! valid_attributes
       expect do
         delete message_url(message)
       end.to change(Message, :count).by(-1)
     end
 
     it 'redirects to the messages list' do
-      message = Message.create! valid_attributes
       delete message_url(message)
       expect(response).to redirect_to(messages_url)
     end

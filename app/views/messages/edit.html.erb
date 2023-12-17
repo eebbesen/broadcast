@@ -1,8 +1,8 @@
-<%= render "form", message: @message %>
+<%= render 'form', message: @message %>
 
 <br>
 
-<div>
-  <%= link_to "Show this message", @message %> |
-  <%= link_to "Back to messages", messages_path %>
+<div class="mt-8 nine-grid">
+  <%= link_to 'Cancel', @message, class: 'blue-button col-start-1 mr-5' %>
+  <%= link_to 'Messages', messages_path, class: 'blue-button col-start-2 mr-5' %>
 </div>

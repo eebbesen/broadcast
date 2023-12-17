@@ -12,11 +12,11 @@
   <% end %>
 
   <div class="py-4">
-    <%= form.label :content, style: "display: block", class: "font-bold" %>
-    <%= form.text_area :content, class: "w-full" %>
+    <%= form.label :content, style: 'display: block', class: 'font-bold' %>
+    <%= form.text_area :content, class: 'w-full' %>
   </div>
 
-  <div class="mt-8 grid md:grid-cols-9 sm:grid-cols-4">
-    <%= form.submit 'Save', class: 'button rounded bg-blue-300 p-2.5 col-start-1 col-span-1' %>
+  <div class="mt-8 nine-grid">
+    <%= form.submit 'Save', class: 'blue-button col-start-1 mr-5' %>
   </div>
 <% end %>
