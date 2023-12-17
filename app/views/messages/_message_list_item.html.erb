@@ -1,13 +1,15 @@
-<%= link_to message_path(message.id), {} do %>
-  <div id="<%= dom_id message %>" class="grid grid-cols-6">
-    <div class="col-span-4">
-      <%= message.content %>
+<div>
+  <%= link_to message_path(message.id), {} do %>
+    <div id="<%= dom_id message %>" class="grid grid-cols-6 border border-slate-300 p-4">
+      <div class="col-span-4">
+        <%= message.content %>
+      </div>
+      <div class="capitalize">
+        <%= message.status %>
+      </div>
+      <div>
+        <%= ui_date(message.sent_at) %>
+      </div>
     </div>
-    <div class="capitalize">
-      <%= message.status %>
-    </div>
-    <div>
-      <%= ui_date(message.sent_at) %>
-    </div>
-  </div>
-<% end %>
+  <% end %>
+</div>
