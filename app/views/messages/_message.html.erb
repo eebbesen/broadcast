@@ -9,8 +9,10 @@
     <%= message.status.capitalize %>
   </div>
 
-  <div class="py-4">
-    <div class="font-bold">Sent At</div>
-    <%= ui_date(message.sent_at) %>
-  </div>
+  <% if message.sent_at %>
+    <div class="py-4">
+      <div class="font-bold">Sent At</div>
+      <%= ui_date(message.sent_at) %>
+    </div>
+  <% end %>
 </div>
