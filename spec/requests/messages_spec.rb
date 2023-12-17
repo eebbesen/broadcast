@@ -20,7 +20,6 @@ RSpec.describe '/messages' do
   # Message. As you add validations to Message, be sure to
   # adjust the attributes here as well.
   let(:valid_attributes) do
-    # { content: 'Park activities this month', status: 'SCHEDULED', user: user }
     { content: 'Park activities this month', status: Message.statuses[:scheduled], user_id: user.id }
   end
 
@@ -120,14 +119,12 @@ RSpec.describe '/messages' do
   end
 
   describe 'DELETE /destroy' do
+    let!(:scheduled_message) { create(:scheduled_message, user:) }
+
     it 'destroys the requested message' do
       expect do
-        delete message_url(message)
+        delete message_url(scheduled_message)
       end.to change(Message, :count).by(-1)
-    end
-
-    it 'redirects to the messages list' do
-      delete message_url(message)
       expect(response).to redirect_to(messages_url)
     end
   end

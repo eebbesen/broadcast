@@ -12,7 +12,8 @@
   </head>
 
   <body>
-    <main class="container mx-auto my-3">
+    <%= render partial: 'navbar', formats: :html %>
+    <main class="container mx-auto my-1">
       <%= yield %>
     </main>
   </body>
