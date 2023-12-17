@@ -2,9 +2,12 @@
 
 <%= render @message %>
 
-<div>
-  <%= link_to "Edit this message", edit_message_path(@message) %> |
-  <%= link_to "Back to messages", messages_path %>
+<div class="mt-8 grid md:grid-cols-9 sm:grid-cols-4">
+  <%= link_to "Edit", edit_message_path(@message), class: 'button rounded bg-blue-300 p-2.5 text-center col-start-1 mr-5' %>
+  <%= link_to "Back", messages_path, class: 'button rounded bg-blue-300 p-2.5 text-center col-start-2 ml-5' %>
+</div>
 
-  <%= button_to "Destroy this message", @message, method: :delete %>
+<div class="mt-8">
+  <%= button_to "Delete", @message, method: :delete, form_class: 'mt-8 grid md:grid-cols-9 sm:grid-cols-4',
+  class: 'button rounded bg-red-300 p-2.5 col-start-1 mr-5' %>
 </div>

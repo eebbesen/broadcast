@@ -1,22 +1,18 @@
 <div id="<%= dom_id message %>">
-  <p>
-    <strong>Content:</strong>
-    <%= message.content %>
-  </p>
+  <div class="py-4">
+    <div class="font-bold">Content</div>
+    <div><%= message.content %></div>
+  </div>
 
-  <p>
-    <strong>Status:</strong>
-    <%= message.status %>
-  </p>
+  <div class="py-4">
+    <div class="font-bold">Status</div>
+    <%= message.status.capitalize %>
+  </div>
 
-  <p>
-    <strong>Sent At:</strong>
-    <%= message.sent_at %>
-  </p>
-
-  <p>
-    <strong>User:</strong>
-    <%= message.user_id %>
-  </p>
-
+  <% if message.sent_at %>
+    <div class="py-4">
+      <div class="font-bold">Sent At</div>
+      <%= ui_date(message.sent_at) %>
+    </div>
+  <% end %>
 </div>

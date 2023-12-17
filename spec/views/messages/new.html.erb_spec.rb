@@ -3,23 +3,31 @@
 require 'rails_helper'
 
 RSpec.describe 'messages/new' do
-  before do
-    assign(:message, Message.new(
-                       content: 'Waste collection changes for the holidays',
-                       status: Message.statuses[:unsent],
-                       user: nil
-                     ))
+  let(:message) do
+    Message.new(
+      content: 'Waste collection changes for the holidays',
+      status: Message.statuses[:unsent],
+      user: nil
+    )
   end
 
-  it 'renders new message form' do
+  it 'renders new message form and accepts data' do
+    assign :message, message
+
     render
 
     assert_select 'form[action=?][method=?]', messages_path, 'post' do
-      assert_select 'input[name=?]', 'message[content]'
+      assert_select 'textarea', message.content
+    end
+  end
 
-      assert_select 'input[name=?]', 'message[status]'
+  it 'renders empty form' do
+    assign :message, Message.new
 
-      assert_select 'input[name=?]', 'message[user_id]'
+    render
+
+    assert_select 'form[action=?][method=?]', messages_path, 'post' do
+      assert_select 'textarea', ''
     end
   end
 end

@@ -11,27 +11,12 @@
     </div>
   <% end %>
 
-  <div>
-    <%= form.label :content, style: "display: block" %>
-    <%= form.text_field :content %>
+  <div class="py-4">
+    <%= form.label :content, style: "display: block", class: "font-bold" %>
+    <%= form.text_area :content, class: "w-full" %>
   </div>
 
-  <div>
-    <%= form.label :status, style: "display: block" %>
-    <%= form.text_field :status %>
-  </div>
-
-  <div>
-    <%= form.label :sent_at, style: "display: block" %>
-    <%= form.datetime_field :sent_at %>
-  </div>
-
-  <div>
-    <%= form.label :user_id, style: "display: block" %>
-    <%= form.text_field :user_id %>
-  </div>
-
-  <div>
-    <%= form.submit %>
+  <div class="mt-8 grid md:grid-cols-9 sm:grid-cols-4">
+    <%= form.submit 'Save', class: 'button rounded bg-blue-300 p-2.5 col-start-1 col-span-1' %>
   </div>
 <% end %>
