@@ -30,7 +30,7 @@ RSpec.describe '/messages' do
     { status: nil }
   end
 
-  let(:message) { create(:sent_message, user: user) }
+  let(:message) { create(:sent_message, user:) }
 
   before do
     sign_in user
