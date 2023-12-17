@@ -13,6 +13,6 @@ RSpec.describe 'messages/show' do
     render
 
     ['Content', 'Status', 'Sent At'].each { |h| expect(rendered).to include(h) }
-    [message.content, message.status].each { |a| expect(rendered).to include(a) }
+    [message.content, message.status.capitalize].each { |a| expect(rendered).to include(a) }
   end
 end

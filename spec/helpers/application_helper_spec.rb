@@ -2,8 +2,8 @@
 
 require 'rails_helper'
 
-RSpec.describe MessagesHelper do
-  let(:helper) { TestAH.new}
+RSpec.describe ApplicationHelper do
+  let(:helper) { TestAH.new }
 
   describe 'ui_date' do
     it 'handles empty input' do
