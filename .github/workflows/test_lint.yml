@@ -1,6 +1,6 @@
 # generated in GitHub, then modified
 name: "Ruby on Rails CI"
-on: [push, pull_request]
+on: push
 
 jobs:
   test:
