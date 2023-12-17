@@ -1,7 +1,9 @@
 # frozen_string_literal: true
 
+# Recipients Controller
 class RecipientsController < ApplicationController
   before_action :set_recipient, only: %i[show edit update destroy]
+  before_action :authenticate_user!
 
   # GET /recipients or /recipients.json
   def index

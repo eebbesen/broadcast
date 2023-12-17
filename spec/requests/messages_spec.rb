@@ -31,9 +31,7 @@ RSpec.describe '/messages' do
 
   let(:message) { create(:sent_message, user:) }
 
-  before do
-    sign_in user
-  end
+  before { sign_in user }
 
   describe 'GET /index' do
     it 'renders a successful response' do
