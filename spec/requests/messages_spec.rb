@@ -101,11 +101,6 @@ RSpec.describe '/messages' do
         patch message_url(message), params: { message: new_attributes }
         message.reload
         expect(message.content).to eq(new_attributes[:content])
-      end
-
-      it 'redirects to the message' do
-        patch message_url(message), params: { message: new_attributes }
-        message.reload
         expect(response).to redirect_to(message_url(message))
       end
     end

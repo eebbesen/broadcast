@@ -4,15 +4,39 @@
 
 @layer components {
   .blue-button {
-    @apply rounded p-2.5 text-center bg-blue-300 col-span-1
+    @apply rounded p-2.5 text-center bg-blue-300 hover:bg-blue-400 col-span-1
   }
 
   .red-button {
-    @apply rounded p-2.5 text-center bg-red-300 col-span-1
+    @apply rounded p-2.5 text-center bg-red-300 hover:bg-red-400 col-span-1
   }
 
   .nine-grid {
     @apply grid md:grid-cols-9 sm:grid-cols-4
   }
 
+  /* devise */
+  body>main>h2 {
+    @apply font-bold text-2xl
+  }
+
+  body>main>a {
+    @apply text-sm text-slate-400 hover:text-slate-600
+  }
+
+  #new_user {
+    div>label {
+      @apply font-bold
+    }
+
+    .field {
+      @apply py-4
+    }
+
+    .actions {
+      @apply rounded p-2.5 text-center bg-blue-300 hover:bg-blue-400 mt-2 w-min px-10
+    }
+
+    @apply mb-3
+  }
 }
