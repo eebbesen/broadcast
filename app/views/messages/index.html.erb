@@ -3,18 +3,7 @@
 <h1 class="text-3xl font-bold my-3">Messages</h1>
 
 <div id="messages-list" class="container grid grid-cols-1 my-6 border border-slate-300 rounded">
-  <div id="header-row" class="grid grid-cols-6 bg-slate-300 rounded-t  p-4">
-    <% %w(Content Status Sent\ At).each do |h| %>
-      <div class="header-item font-bold <%= 'col-span-4' if h == 'Content' %>">
-        <%= h %>
-      </div>
-    <% end %>
-  </div>
-  <div id="data">
-    <% @messages.each do |message| %>
-      <%= render partial: 'message_list_item', locals: {message: message} %>
-    <% end %>
-  </div>
+  <%= render partial: 'messages_list', locals: { messages: @messages } %>
 </div>
 
 <div class="mt-8">
