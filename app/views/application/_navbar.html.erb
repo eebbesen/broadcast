@@ -1,6 +1,6 @@
 <div class="container nine-grid mx-auto mt-1" id="navbar">
   <% unless request.controller_class.to_s.start_with? 'Devise' %>
-    <div id="auth-actions" class="md:col-start-9 sm:col-start-4 text-sm text-slate-400 hover:text-slate-600">
+    <div id="auth-actions" class="md:col-start-9 sm:col-start-4 text-sm text-slate-400 hover:text-slate-600 text-right">
       <%= button_to('Sign Out', destroy_user_session_path, method: :delete) if current_user  %>
       <%= 'Log In' unless current_user  %>
     </div>
