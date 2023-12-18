@@ -11,6 +11,6 @@ RSpec.describe 'recipients/show' do
     render
 
     %w[Phone Status].each { |h| expect(rendered).to include(h) }
-    [recipient.phone, recipient.status].each { |h| expect(rendered).to include(h) }
+    [recipient.phone, recipient.status.capitalize].each { |h| expect(rendered).to include(h) }
   end
 end

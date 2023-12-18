@@ -14,8 +14,8 @@ RSpec.describe 'recipients/index' do
 
   it 'renders a list of recipients' do
     render
-    cell_selector = Rails::VERSION::STRING >= '7' ? 'div>p' : 'tr>td'
-    assert_select cell_selector, text: Regexp.new('Phone'.to_s), count: 2
-    assert_select cell_selector, text: Regexp.new('Status'.to_s), count: 2
+    recipients.each do |r|
+      [r.phone, r.status].each { |c| expect(rendered).to include(c) }
+    end
   end
 end

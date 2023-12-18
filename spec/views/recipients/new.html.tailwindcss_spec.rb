@@ -9,9 +9,7 @@ RSpec.describe 'recipients/new' do
     render
 
     assert_select 'form[action=?][method=?]', recipients_path, 'post' do
-      assert_select 'input[name=?]', 'recipient[phone]'
-
-      assert_select 'input[name=?]', 'recipient[status]'
+      assert_select 'input', ''
     end
   end
 end

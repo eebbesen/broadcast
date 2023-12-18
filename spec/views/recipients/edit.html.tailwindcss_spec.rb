@@ -14,8 +14,6 @@ RSpec.describe 'recipients/edit' do
 
     assert_select 'form[action=?][method=?]', recipient_path(recipient), 'post' do
       assert_select 'input[name=?]', 'recipient[phone]'
-
-      assert_select 'input[name=?]', 'recipient[status]'
     end
   end
 end

@@ -1,15 +1,13 @@
-<div class="mx-auto md:w-2/3 w-full flex">
-  <div class="mx-auto">
-    <% if notice.present? %>
-      <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-lg inline-block" id="notice"><%= notice %></p>
-    <% end %>
+<p style="color: green"><%= notice %></p>
 
-    <%= render @recipient %>
+<%= render @recipient %>
 
-    <%= link_to "Edit this recipient", edit_recipient_path(@recipient), class: "mt-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
-    <div class="inline-block ml-2">
-      <%= button_to "Destroy this recipient", recipient_path(@recipient), method: :delete, class: "mt-2 rounded-lg py-3 px-5 bg-gray-100 font-medium" %>
-    </div>
-    <%= link_to "Back to recipients", recipients_path, class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
-  </div>
+<div class="mt-8 nine-grid">
+  <%= link_to 'Edit', edit_recipient_path(@recipient), class: 'blue-button col-start-1 mr-5' %>
+  <%= link_to 'Back', recipients_path, class: 'blue-button col-start-2 ml-5' %>
+</div>
+
+<div class="mt-8">
+  <%= button_to 'Delete', @recipient, method: :delete, form_class: 'mt-8 nine-grid',
+  class: 'red-button col-start-1 mr-5' %>
 </div>

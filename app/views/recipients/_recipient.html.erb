@@ -1,17 +1,11 @@
 <div id="<%= dom_id recipient %>">
-  <p class="my-5">
-    <strong class="block font-medium mb-1">Phone:</strong>
-    <%= recipient.phone %>
-  </p>
+  <div class="py-4">
+    <div class="font-bold">Phone</div>
+    <div><%= recipient.phone %></div>
+  </div>
 
-  <p class="my-5">
-    <strong class="block font-medium mb-1">Status:</strong>
-    <%= recipient.status %>
-  </p>
-
-  <% if action_name != "show" %>
-    <%= link_to "Show this recipient", recipient, class: "rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
-    <%= link_to "Edit this recipient", edit_recipient_path(recipient), class: "rounded-lg py-3 ml-2 px-5 bg-gray-100 inline-block font-medium" %>
-    <hr class="mt-6">
-  <% end %>
+  <div class="py-4">
+    <div class="font-bold">Status</div>
+    <%= recipient.status.capitalize %>
+  </div>
 </div>
