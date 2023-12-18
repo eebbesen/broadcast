@@ -17,7 +17,8 @@ RSpec.describe 'messages/index' do
 
   it 'renders a list of messages' do
     render
-
-    messages.each { |m| expect(rendered).to include(m.content) }
+    messages.each do |m|
+      [m.content, m.status].each { |c| expect(rendered).to include(c) }
+    end
   end
 end
