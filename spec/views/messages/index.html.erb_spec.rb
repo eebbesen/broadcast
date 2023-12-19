@@ -3,11 +3,10 @@
 require 'rails_helper'
 
 RSpec.describe 'messages/index' do
-  let(:user) { create(:user) }
   let(:messages) do
     [
-      create(:sent_message, user:),
-      create(:scheduled_message, user:)
+      create(:sent_message),
+      create(:scheduled_message)
     ]
   end
 

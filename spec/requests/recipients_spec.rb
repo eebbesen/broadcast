@@ -3,7 +3,6 @@
 require 'rails_helper'
 
 RSpec.describe '/recipients' do
-  let(:user) { create(:user) }
   # This should return the minimal set of attributes required to create a valid
   # Recipient. As you add validations to Recipient, be sure to
   # adjust the attributes here as well.
@@ -79,7 +78,7 @@ RSpec.describe '/recipients' do
   end
 
   describe 'with signed in user' do
-    before { sign_in user }
+    before { sign_in create(:user) }
 
     describe 'GET /index' do
       it 'renders a successful response' do
