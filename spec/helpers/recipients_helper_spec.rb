@@ -13,5 +13,22 @@ require 'rails_helper'
 #   end
 # end
 RSpec.describe RecipientsHelper do
-  pending "add some examples to (or delete) #{__FILE__}"
+  describe 'format' do
+    it 'removes +1' do
+      expect(format('+16515551212')).to eq('6515551212')
+    end
+
+    it 'removes US country code' do
+      expect(format('16515551212')).to eq('6515551212')
+    end
+
+    it 'does not remove US country code if significant' do
+      expect(format('1651555121')).to eq('1651555121')
+    end
+
+    it 'removes dots, dashes, parenthesis and spaces' do
+      expect(format('+1 (651) 555-1212')).to eq('6515551212')
+      expect(format('651.555.1212')).to eq('6515551212')
+    end
+  end
 end
