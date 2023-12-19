@@ -3,11 +3,5 @@
 <%= render @message_recipient %>
 
 <div class="mt-8 nine-grid">
-  <%= link_to 'Edit', edit_message_recipient_path(@message_recipient), class: 'blue-button col-start-1 mr-5' %>
   <%= link_to 'Back', message_recipients_path, class: 'blue-button col-start-2 ml-5' %>
-</div>
-
-<div class="mt-8">
-  <%= button_to 'Delete', @message_recipient, method: :delete, form_class: 'mt-8 nine-grid',
-  class: 'red-button col-start-1 mr-5' %>
 </div>

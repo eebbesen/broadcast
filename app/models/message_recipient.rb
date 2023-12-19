@@ -2,7 +2,7 @@
 
 # Message Recipient
 class MessageRecipient < ApplicationRecord
-  enum :status, { pending: 'pending', success: 'success', fail: 'fail' }
+  enum :status, { pending: 'pending', success: 'success', failure: 'failure' }
 
   belongs_to :message
   belongs_to :recipient

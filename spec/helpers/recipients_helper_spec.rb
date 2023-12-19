@@ -30,5 +30,9 @@ RSpec.describe RecipientsHelper do
       expect(format('+1 (651) 555-1212')).to eq('6515551212')
       expect(format('651.555.1212')).to eq('6515551212')
     end
+
+    it 'removes extensinos' do
+      expect(format('1651555121x123')).to eq('1651555121')
+    end
   end
 end

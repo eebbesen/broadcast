@@ -5,6 +5,6 @@ FactoryBot.define do
     message { association(:sent_message) }
     recipient
     status { MessageRecipient.statuses[:success] }
-    sid { "MM#{Faker::Alphanumeric.alphanumeric(number: 32, min_alpha: 10, min_numeric: 10)}" }
+    sid { Helper.new.fake_sid }
   end
 end

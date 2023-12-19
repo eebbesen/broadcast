@@ -11,7 +11,7 @@ RSpec.describe 'message_recipients/index' do
   it 'renders a list of message_recipients' do
     render
     message_recipients.each do |mr|
-      [mr.recipient.phone, mr.message.content, mr.status.capitalize]
+      [mr.message.id.to_s, mr.recipient.phone, mr.sid, mr.status]
         .each { |c| expect(rendered).to include(c) }
     end
   end
