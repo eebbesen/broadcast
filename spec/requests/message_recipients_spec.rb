@@ -14,28 +14,43 @@ RSpec.describe '/message_recipients' do
     { mesage: create(:sent_message), recipient: create(:recipient) }
   end
 
-  describe 'GET /index' do
-    it 'renders a successful response' do
-      MessageRecipient.create! valid_attributes
-      get message_recipients_url
-      expect(response).to be_successful
+  describe 'not signed in' do
+    describe 'GET /index' do
+      it 'redirects' do
+        MessageRecipient.create! valid_attributes
+        get message_recipients_url
+        expect(response).to have_http_status(:found)
+        expect(response).not_to be_successful
+      end
+    end
+
+    describe 'GET /show' do
+      it 'redirects' do
+        message_recipient = MessageRecipient.create! valid_attributes
+        get message_recipient_url(message_recipient)
+        expect(response).to have_http_status(:found)
+        expect(response).not_to be_successful
+      end
     end
   end
 
-  describe 'GET /show' do
-    it 'renders a successful response' do
-      message_recipient = MessageRecipient.create! valid_attributes
-      get message_recipient_url(message_recipient)
-      expect(response).to be_successful
-    end
-  end
+  describe 'signed in' do
+    before { sign_in(create(:user)) }
 
-  # no view for this, just API since we don't want humans editing
-  describe 'GET /edit' do
-    it 'renders a successful response' do
-      message_recipient = MessageRecipient.create! valid_attributes
-      get edit_message_recipient_url(message_recipient), as: :json
-      expect(response).to be_successful
+    describe 'GET /index' do
+      it 'renders a successful response' do
+        MessageRecipient.create! valid_attributes
+        get message_recipients_url
+        expect(response).to be_successful
+      end
+    end
+
+    describe 'GET /show' do
+      it 'renders a successful response' do
+        message_recipient = MessageRecipient.create! valid_attributes
+        get message_recipient_url(message_recipient)
+        expect(response).to be_successful
+      end
     end
   end
 end

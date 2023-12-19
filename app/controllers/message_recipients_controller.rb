@@ -2,7 +2,8 @@
 
 # join table for messages and recipients
 class MessageRecipientsController < ApplicationController
-  before_action :set_message_recipient, only: %i[show]
+  before_action :set_message_recipient, only: :show
+  before_action :authenticate_user!
 
   # GET /message_recipients or /message_recipients.json
   def index
