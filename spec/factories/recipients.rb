@@ -2,7 +2,7 @@
 
 FactoryBot.define do
   factory :recipient do
-    phone { '6515551212' }
     status { Recipient.statuses[:verified] }
+    phone { Helper.new.format(Faker::PhoneNumber.phone_number) }
   end
 end

@@ -5,6 +5,7 @@ class Message < ApplicationRecord
   enum :status, { unsent: 'unsent', scheduled: 'scheduled', sent: 'sent' }
 
   belongs_to :user
+  has_many :message_recipients, dependent: :destroy
   validates :content, presence: true
   validates :status, presence: true
 end
