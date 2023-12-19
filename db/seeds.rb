@@ -1,17 +1,9 @@
 # frozen_string_literal: true
 
-require './app/helpers/recipients_helper'
+require './spec/test_helper'
 require 'factory_bot_rails'
 include FactoryBot::Syntax::Methods # rubocop:disable Style/MixinUsage
 
-# Data helper
-class Helper
-  include RecipientsHelper
-
-  def fake_sid
-    "MM#{Faker::Alphanumeric.alphanumeric(number: 32, min_alpha: 10, min_numeric: 10)}"
-  end
-end
 # This file should ensure the existence of records required to run the application in every environment (production,
 # development, test). The code here should be idempotent so that it can be executed at any point in every environment.
 # The data can then be loaded with the bin/rails db:seed command (or created alongside the database with db:setup).
