@@ -12,11 +12,6 @@ class MessageRecipientsController < ApplicationController
   # GET /message_recipients/1 or /message_recipients/1.json
   def show; end
 
-  # GET /message_recipients/new
-  def new
-    @message_recipient = MessageRecipient.new
-  end
-
   # GET /message_recipients/1/edit
   def edit; end
 
