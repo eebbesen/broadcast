@@ -120,4 +120,82 @@ RSpec.describe '/recipient_lists' do
       end
     end
   end
+
+  describe 'unauthenticated' do
+    describe 'GET /index' do
+      it 'renders a successful response' do
+        RecipientList.create! valid_attributes
+        get recipient_lists_url
+        expect(response).to have_http_status(:found)
+        expect(response).not_to be_successful
+      end
+    end
+
+    describe 'GET /show' do
+      it 'renders a successful response' do
+        recipient_list = RecipientList.create! valid_attributes
+        get recipient_list_url(recipient_list)
+        expect(response).to have_http_status(:found)
+        expect(response).not_to be_successful
+      end
+    end
+
+    describe 'GET /new' do
+      it 'renders a successful response' do
+        get new_recipient_list_url
+        expect(response).to have_http_status(:found)
+        expect(response).not_to be_successful
+      end
+    end
+
+    describe 'GET /edit' do
+      it 'renders a successful response' do
+        recipient_list = RecipientList.create! valid_attributes
+        get edit_recipient_list_url(recipient_list)
+        expect(response).to have_http_status(:found)
+        expect(response).not_to be_successful
+      end
+    end
+
+    describe 'POST /create' do
+      context 'with valid parameters' do
+        it 'creates a new RecipientList' do
+          expect do
+            post recipient_lists_url, params: { recipient_list: valid_attributes }
+          end.not_to change(RecipientList, :count)
+          expect(response).to have_http_status(:found)
+          expect(response).not_to be_successful
+        end
+      end
+    end
+
+    describe 'PATCH /update' do
+      context 'with valid parameters' do
+        let(:new_attributes) do
+          { user_id: create(:user).id, name: 'Park Events updated' }
+        end
+
+        it 'updates the requested recipient_list' do
+          recipient_list = RecipientList.create! valid_attributes
+          expected = recipient_list.name
+          patch recipient_list_url(recipient_list), params: { recipient_list: new_attributes }
+          recipient_list.reload
+          expect(recipient_list.name).to eq(expected)
+          expect(response).to have_http_status(:found)
+          expect(response).not_to be_successful
+        end
+      end
+    end
+
+    describe 'DELETE /destroy' do
+      it 'destroys the requested recipient_list' do
+        recipient_list = RecipientList.create! valid_attributes
+        expect do
+          delete recipient_list_url(recipient_list)
+        end.not_to change(RecipientList, :count)
+        expect(response).to have_http_status(:found)
+        expect(response).not_to be_successful
+      end
+    end
+  end
 end

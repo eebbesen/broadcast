@@ -10,7 +10,6 @@ include FactoryBot::Syntax::Methods # rubocop:disable Style/MixinUsage
 
 # create a user in the console
 # User.create!(email: 'you@you.you', password: 'S3kr!t_')
-User.create!(email: 'you@you.you', password: 'retek01!')
 
 Message.create!(content: 'Thank you for subscribing to park information messages',
                 user: User.first, status: Message.statuses[:sent],

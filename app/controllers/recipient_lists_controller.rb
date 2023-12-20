@@ -3,6 +3,7 @@
 # Recipient Lists
 class RecipientListsController < ApplicationController
   before_action :set_recipient_list, only: %i[show edit update destroy]
+  before_action :authenticate_user!
 
   # GET /recipient_lists or /recipient_lists.json
   def index
