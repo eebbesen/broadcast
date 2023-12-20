@@ -23,7 +23,7 @@ class RecipientListsController < ApplicationController
 
   # POST /recipient_lists or /recipient_lists.json
   def create # rubocop:disable Metrics/MethodLength
-    @recipient_list = RecipientList.new(recipient_list_params)
+    @recipient_list = RecipientList.new(recipient_list_params.merge(user: current_user))
 
     respond_to do |format|
       if @recipient_list.save

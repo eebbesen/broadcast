@@ -7,18 +7,18 @@ RSpec.describe '/recipient_lists' do
   # This should return the minimal set of attributes required to create a valid
   # RecipientList. As you add validations to RecipientList, be sure to
   # adjust the attributes here as well.
+  # note that user is required but added by the controller
   let(:valid_attributes) do
-    { user_id: user.id, name: 'Park Events' }
+    { name: 'Park Events' }
   end
-
-  let(:invalid_attributes) { { user_id: user.id } }
+  let(:invalid_attributes) { { naem: nil } }
+  let!(:recipient_list) { RecipientList.create!(valid_attributes.merge(user:)) }
 
   describe 'signed in user' do
     before { sign_in user }
 
     describe 'GET /index' do
       it 'renders a successful response' do
-        RecipientList.create! valid_attributes
         get recipient_lists_url
         expect(response).to be_successful
       end
@@ -26,7 +26,6 @@ RSpec.describe '/recipient_lists' do
 
     describe 'GET /show' do
       it 'renders a successful response' do
-        recipient_list = RecipientList.create! valid_attributes
         get recipient_list_url(recipient_list)
         expect(response).to be_successful
       end
@@ -41,7 +40,6 @@ RSpec.describe '/recipient_lists' do
 
     describe 'GET /edit' do
       it 'renders a successful response' do
-        recipient_list = RecipientList.create! valid_attributes
         get edit_recipient_list_url(recipient_list)
         expect(response).to be_successful
       end
@@ -78,18 +76,16 @@ RSpec.describe '/recipient_lists' do
     describe 'PATCH /update' do
       context 'with valid parameters' do
         let(:new_attributes) do
-          { user_id: create(:user).id, name: 'Park Events updated' }
+          { name: 'Park Events updated' }
         end
 
         it 'updates the requested recipient_list' do
-          recipient_list = RecipientList.create! valid_attributes
           patch recipient_list_url(recipient_list), params: { recipient_list: new_attributes }
           recipient_list.reload
           expect(recipient_list.name).to eq('Park Events updated')
         end
 
         it 'redirects to the recipient_list' do
-          recipient_list = RecipientList.create! valid_attributes
           patch recipient_list_url(recipient_list), params: { recipient_list: new_attributes }
           recipient_list.reload
           expect(response).to redirect_to(recipient_list_url(recipient_list))
@@ -98,8 +94,7 @@ RSpec.describe '/recipient_lists' do
 
       context 'with invalid parameters' do
         it "renders a response with 422 status (i.e. to display the 'edit' template)" do
-          recipient_list = RecipientList.create! valid_attributes
-          patch recipient_list_url(recipient_list), params: { recipient_list: { user_id: nil } }
+          patch recipient_list_url(recipient_list), params: { recipient_list: { name: nil } }
           expect(response).to have_http_status(:unprocessable_entity)
         end
       end
@@ -107,14 +102,12 @@ RSpec.describe '/recipient_lists' do
 
     describe 'DELETE /destroy' do
       it 'destroys the requested recipient_list' do
-        recipient_list = RecipientList.create! valid_attributes
         expect do
           delete recipient_list_url(recipient_list)
         end.to change(RecipientList, :count).by(-1)
       end
 
       it 'redirects to the recipient_lists list' do
-        recipient_list = RecipientList.create! valid_attributes
         delete recipient_list_url(recipient_list)
         expect(response).to redirect_to(recipient_lists_url)
       end
@@ -124,7 +117,6 @@ RSpec.describe '/recipient_lists' do
   describe 'unauthenticated' do
     describe 'GET /index' do
       it 'renders a successful response' do
-        RecipientList.create! valid_attributes
         get recipient_lists_url
         expect(response).to have_http_status(:found)
         expect(response).not_to be_successful
@@ -133,7 +125,6 @@ RSpec.describe '/recipient_lists' do
 
     describe 'GET /show' do
       it 'renders a successful response' do
-        recipient_list = RecipientList.create! valid_attributes
         get recipient_list_url(recipient_list)
         expect(response).to have_http_status(:found)
         expect(response).not_to be_successful
@@ -150,7 +141,6 @@ RSpec.describe '/recipient_lists' do
 
     describe 'GET /edit' do
       it 'renders a successful response' do
-        recipient_list = RecipientList.create! valid_attributes
         get edit_recipient_list_url(recipient_list)
         expect(response).to have_http_status(:found)
         expect(response).not_to be_successful
@@ -172,11 +162,10 @@ RSpec.describe '/recipient_lists' do
     describe 'PATCH /update' do
       context 'with valid parameters' do
         let(:new_attributes) do
-          { user_id: create(:user).id, name: 'Park Events updated' }
+          { name: 'Park Events updated' }
         end
 
         it 'updates the requested recipient_list' do
-          recipient_list = RecipientList.create! valid_attributes
           expected = recipient_list.name
           patch recipient_list_url(recipient_list), params: { recipient_list: new_attributes }
           recipient_list.reload
@@ -189,7 +178,6 @@ RSpec.describe '/recipient_lists' do
 
     describe 'DELETE /destroy' do
       it 'destroys the requested recipient_list' do
-        recipient_list = RecipientList.create! valid_attributes
         expect do
           delete recipient_list_url(recipient_list)
         end.not_to change(RecipientList, :count)
