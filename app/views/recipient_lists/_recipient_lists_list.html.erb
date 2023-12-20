@@ -1,7 +1,7 @@
 <div>
   <div id="header-row" class="grid grid-cols-6 bg-slate-300 rounded-t p-4">
     <% %w(Name User).each do |h| %>
-      <div class="header-item font-bold <%= 'col-span-4' if h == 'Content' %>">
+      <div class="header-item font-bold">
         <%= h %>
       </div>
     <% end %>
@@ -13,10 +13,10 @@
     %>
       <%= link_to recipient_list_path(rl.id) do %>
         <div id="<%= dom_id rl %>" class="grid grid-cols-6 border border-slate-300 p-4 <%= st %>">
-          <div class="col-span-4">
+          <div>
             <%= rl.name %>
           </div>
-          div class="col-span-4">
+          <div>
             <%= rl.user.id %>
           </div>
         </div>

@@ -10,6 +10,7 @@ include FactoryBot::Syntax::Methods # rubocop:disable Style/MixinUsage
 
 # create a user in the console
 # User.create!(email: 'you@you.you', password: 'S3kr!t_')
+User.create!(email: 'you@you.you', password: 'retek01!')
 
 Message.create!(content: 'Thank you for subscribing to park information messages',
                 user: User.first, status: Message.statuses[:sent],
@@ -18,12 +19,10 @@ Message.create!(content: 'Holiday garbage collection date changes',
                 user: User.first, status: Message.statuses[:unsent])
 
 3.times do
-  Recipient.create!(phone: Helper.new.format(Faker::PhoneNumber.phone_number),
-                    status: Recipient.statuses[:verified])
+  Recipient.create!(phone: Faker::Number.number(digits: 10), status: Recipient.statuses[:verified])
 end
 2.times do
-  Recipient.create!(phone: Helper.new.format(Faker::PhoneNumber.phone_number),
-                    status: Recipient.statuses[:unverified])
+  Recipient.create!(phone: Faker::Number.number(digits: 10), status: Recipient.statuses[:unverified])
 end
 
 Recipient.where(status: :verified).find_each do |r|
@@ -34,3 +33,6 @@ MessageRecipient.create!(message: Message.first, recipient: create(:recipient),
                          sid: Helper.new.fake_sid, status: MessageRecipient.statuses[:failure])
 MessageRecipient.create!(message: Message.last, recipient: create(:recipient),
                          sid: Helper.new.fake_sid, status: MessageRecipient.statuses[:pending])
+
+RecipientList.create(name: 'Park Programs', user: User.first)
+RecipientList.create(name: 'Yard Wast', user: User.first)

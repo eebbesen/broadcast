@@ -1,7 +1,9 @@
-<div class="mx-auto md:w-2/3 w-full">
-  <h1 class="font-bold text-4xl">New recipient list</h1>
+<h1 class="font-bold">New Recipient</h1>
 
-  <%= render "form", recipient_list: @recipient_list %>
+<%= render 'form', recipient_list: @recipient_list %>
 
-  <%= link_to "Back to recipient lists", recipient_lists_path, class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
+<br>
+
+<div class="mt-8 nine-grid">
+  <%= link_to 'Back', recipient_lists_path, class: 'blue-button col-start-1 mr-5' %>
 </div>

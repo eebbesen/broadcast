@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# Recipient Lists
 class RecipientListsController < ApplicationController
   before_action :set_recipient_list, only: %i[show edit update destroy]
 
@@ -20,7 +21,7 @@ class RecipientListsController < ApplicationController
   def edit; end
 
   # POST /recipient_lists or /recipient_lists.json
-  def create
+  def create # rubocop:disable Metrics/MethodLength
     @recipient_list = RecipientList.new(recipient_list_params)
 
     respond_to do |format|
@@ -37,7 +38,7 @@ class RecipientListsController < ApplicationController
   end
 
   # PATCH/PUT /recipient_lists/1 or /recipient_lists/1.json
-  def update
+  def update # rubocop:disable Metrics/MethodLength
     respond_to do |format|
       if @recipient_list.update(recipient_list_params)
         format.html do
