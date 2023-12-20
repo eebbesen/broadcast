@@ -11,7 +11,7 @@
       st = i.odd? ? ' bg-slate-100 ' : ''
       st += i == recipient_lists.size ? ' rounded-b ' : ''
     %>
-      <%= link_to recipient_list_path(rl.id) do %>
+      <%= link_to(recipient_list_path(rl.id), id: "link-recipient-list-#{rl.id}") do %>
         <div id="<%= dom_id rl %>" class="grid grid-cols-6 border border-slate-300 p-4 <%= st %>">
           <div>
             <%= rl.name %>
