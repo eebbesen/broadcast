@@ -1,0 +1,13 @@
+<p style="color: green"><%= notice %></p>
+
+<%= render @recipient_list %>
+
+<div class="mt-8 nine-grid">
+  <%= link_to 'Edit', edit_recipient_list_path(@recipient_list), class: 'blue-button col-start-1 mr-5' %>
+  <%= link_to 'Back', recipient_lists_path, class: 'blue-button col-start-2 ml-5' %>
+</div>
+
+<div class="mt-8">
+  <%= button_to 'Delete', @recipient_list, method: :delete, form_class: 'mt-8 nine-grid',
+  class: 'red-button col-start-1 mr-5' %>
+</div>

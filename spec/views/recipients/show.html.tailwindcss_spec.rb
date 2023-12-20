@@ -7,7 +7,7 @@ RSpec.describe 'recipients/show' do
 
   before { assign(:recipient, recipient) }
 
-  it 'renders attributes in <p>' do
+  it 'renders attributes' do
     render
 
     %w[Phone Status].each { |h| expect(rendered).to include(h) }

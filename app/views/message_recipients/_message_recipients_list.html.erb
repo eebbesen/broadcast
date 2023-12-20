@@ -1,7 +1,7 @@
 <div>
   <div id="header-row" class="grid grid-cols-6 bg-slate-300 rounded-t p-4">
     <% %w(Message Phone Status SID).each do |h| %>
-      <div class="header-item font-bold <%= 'col-span-4' if h == 'Content' %>">
+      <div class="header-item font-bold">
         <%= h %>
       </div>
     <% end %>

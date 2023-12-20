@@ -3,6 +3,6 @@
 FactoryBot.define do
   factory :recipient do
     status { Recipient.statuses[:verified] }
-    phone { Helper.new.format(Faker::PhoneNumber.phone_number) }
+    phone { Faker::Number.number(digits: 10) }
   end
 end

@@ -1,0 +1,22 @@
+<%= form_with(model: recipient_list) do |form| %>
+  <% if recipient_list.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(recipient_list.errors.count, "error") %> prohibited this recipient list from being saved:</h2>
+
+      <ul>
+        <% recipient_list.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="py-4">
+    <%= form.label :name, style: 'display: block', class: 'font-bold' %>
+    <%= form.text_field :name, class: 'w-1/2' %>
+  </div>
+
+  <div class="mt-8 nine-grid">
+    <%= form.submit 'Save', class: 'blue-button col-start-1 mr-5' %>
+  </div>
+<% end %>
