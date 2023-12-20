@@ -1,6 +1,6 @@
 <div>
   <div id="header-row" class="grid grid-cols-6 bg-slate-300 rounded-t p-4">
-    <% %w(Phone Status).each do |h| %>
+    <% %w(Phone Status Messages).each do |h| %>
       <div class="header-item font-bold">
         <%= h %>
       </div>
@@ -18,6 +18,9 @@
           </div>
           <div class="capitalize">
             <%= r.status %>
+          </div>
+          <div>
+            <%= r.messages.count %>
           </div>
         </div>
       <% end %>

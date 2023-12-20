@@ -3,14 +3,22 @@
 require 'rails_helper'
 
 RSpec.describe 'recipients/show' do
-  let(:recipient) { create(:recipient) }
+  let(:message_recipient) { create(:message_recipient) }
+  let(:recipient) { message_recipient.recipient }
 
   before { assign(:recipient, recipient) }
 
   it 'renders attributes' do
     render
 
-    %w[Phone Status].each { |h| expect(rendered).to include(h) }
-    [recipient.phone, recipient.status.capitalize].each { |h| expect(rendered).to include(h) }
+    ['Phone', 'Status', 'Message Count'].each { |h| expect(rendered).to include(h) }
+    [recipient.phone, recipient.status.capitalize, recipient.messages.count.to_s]
+      .each { |a| expect(rendered).to include(a) }
+    ['Content', 'Status', 'Sent At'].each { |h| expect(rendered).to include(h) }
+    recipient.messages
+             .each do |m|
+      [m.content, m.status, ui_date(m.sent_at)]
+        .each { |a| expect(rendered).to include(a) }
+    end
   end
 end

@@ -14,8 +14,9 @@ RSpec.describe 'recipients/index' do
 
   it 'renders a list of recipients' do
     render
+    %w[Phone Status Messages].each { |h| expect(rendered).to include(h) }
     recipients.each do |r|
-      [r.phone, r.status].each { |c| expect(rendered).to include(c) }
+      [r.phone, r.status, r.messages.count.to_s].each { |a| expect(rendered).to include(a) }
     end
   end
 end
