@@ -12,11 +12,11 @@ RSpec.describe 'RecipientLists' do
     let(:user) { create(:user, password:) }
 
     it 'sign in works' do
-      visit root_path
+      visit(root_path)
       expect(page).to have_current_path(new_user_session_path)
 
-      fill_in 'Email', with: user.email
-      fill_in 'Password', with: password
+      fill_in('Email', with: user.email)
+      fill_in('Password', with: password)
       click_button 'Log in'
 
       expect(page).to have_current_path(root_path)
@@ -24,8 +24,8 @@ RSpec.describe 'RecipientLists' do
     end
 
     it 'sign out works' do
-      sign_in user
-      visit root_path
+      sign_in(user)
+      visit(root_path)
 
       expect(page).to have_current_path(root_path)
       click_button 'Sign Out'
@@ -37,7 +37,7 @@ RSpec.describe 'RecipientLists' do
   describe 'navbar' do
     before do
       sign_in(create(:user))
-      visit root_path
+      visit(root_path)
     end
 
     describe('dropdown') do
