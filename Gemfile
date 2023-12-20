@@ -63,8 +63,11 @@ group :development do
   # linters
   gem 'brakeman', require: false
   gem 'bundler-audit', require: false
+  gem 'capybara', require: false
+  gem 'launchy', require: false
   gem 'reek', require: false
   gem 'rubocop', require: false
+  gem 'rubocop-capybara', require: false
   gem 'rubocop-rails', require: false
   gem 'rubocop-rspec', require: false
 

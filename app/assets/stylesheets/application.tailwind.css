@@ -2,7 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-textarea, input, .w-full {
+textarea, input, .py-4>input {
   @apply rounded
 }
 
