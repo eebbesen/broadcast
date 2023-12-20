@@ -34,4 +34,4 @@ MessageRecipient.create!(message: Message.last, recipient: create(:recipient),
                          sid: Helper.new.fake_sid, status: MessageRecipient.statuses[:pending])
 
 RecipientList.create(name: 'Park Programs', user: User.first)
-RecipientList.create(name: 'Yard Wast', user: User.first)
+RecipientList.create(name: 'Yard Waste', user: User.first)

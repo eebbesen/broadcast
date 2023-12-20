@@ -16,8 +16,11 @@ RSpec.describe 'messages/index' do
 
   it 'renders a list of messages' do
     render
+
+    ['Content', 'Status', 'Recipients', 'Sent At']
+      .each { |h| expect(rendered).to include(h) }
     messages.each do |m|
-      [m.content, m.status].each { |c| expect(rendered).to include(c) }
+      [m.content, m.status, m.recipients.count.to_s].each { |a| expect(rendered).to include(a) }
     end
   end
 end

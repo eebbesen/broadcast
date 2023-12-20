@@ -1,7 +1,7 @@
 <div>
   <div id="header-row" class="grid grid-cols-6 bg-slate-300 rounded-t p-4">
-    <% %w(Content Status Sent\ At).each do |h| %>
-      <div class="header-item font-bold <%= 'col-span-4' if h == 'Content' %>">
+    <% %w(Content Status Recipients Sent\ At).each do |h| %>
+      <div class="header-item font-bold <%= 'col-span-3' if h == 'Content' %>">
         <%= h %>
       </div>
     <% end %>
@@ -13,11 +13,14 @@
     %>
       <%= link_to message_path(m.id) do %>
         <div id="<%= dom_id m %>" class="grid grid-cols-6 border border-slate-300 p-4 <%= st %>">
-          <div class="col-span-4">
+          <div class="col-span-3">
             <%= m.content %>
           </div>
           <div class="capitalize">
             <%= m.status %>
+          </div>
+          <div>
+            <%= m.recipients.count %>
           </div>
           <div>
             <%= ui_date(m.sent_at) %>
