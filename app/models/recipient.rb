@@ -5,6 +5,7 @@ class Recipient < ApplicationRecord
   enum :status, { unverified: 'unverified', verified: 'verified', blocked: 'blocked' }
 
   has_many :message_recipients, dependent: :destroy
+  has_many :messages, through: :message_recipients
   validates :phone, presence: true
   validates :status, presence: true
 end

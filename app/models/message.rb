@@ -6,6 +6,7 @@ class Message < ApplicationRecord
 
   belongs_to :user
   has_many :message_recipients, dependent: :destroy
+  has_many :recipients, through: :message_recipients
   validates :content, presence: true
   validates :status, presence: true
 end
