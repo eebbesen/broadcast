@@ -1,11 +1,9 @@
 <p style="color: green"><%= notice %></p>
 
-<h1 class="text-3xl font-bold">Recipients</h1>
+<div>
+  <%= link_to 'New Recipient', new_recipient_path, class: 'blue-button' %>
+</div>
 
 <div id="recipients-list" class="container grid grid-cols-1 my-6 border border-slate-300 rounded">
   <%= render partial: 'recipients_list', locals: { recipients: @recipients } %>
-</div>
-
-<div class="mt-8">
-  <%= link_to 'New Recipient', new_recipient_path, class: 'blue-button' %>
 </div>
