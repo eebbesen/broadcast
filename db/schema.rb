@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2023_12_19_161056) do
+ActiveRecord::Schema[7.1].define(version: 2023_12_19_222026) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -48,6 +48,14 @@ ActiveRecord::Schema[7.1].define(version: 2023_12_19_161056) do
     t.index ["user_id"], name: "index_messages_on_user_id"
   end
 
+  create_table "recipient_lists", force: :cascade do |t|
+    t.string "name", null: false
+    t.bigint "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_recipient_lists_on_user_id"
+  end
+
   create_table "recipients", force: :cascade do |t|
     t.string "phone", null: false
     t.string "status", null: false
@@ -70,4 +78,5 @@ ActiveRecord::Schema[7.1].define(version: 2023_12_19_161056) do
   add_foreign_key "message_recipients", "messages"
   add_foreign_key "message_recipients", "recipients"
   add_foreign_key "messages", "users"
+  add_foreign_key "recipient_lists", "users"
 end

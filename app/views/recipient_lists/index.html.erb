@@ -1,0 +1,11 @@
+<p style="color: green"><%= notice %></p>
+
+<h1 class="text-3xl font-bold">Recipient Lists</h1>
+
+<div id="recipient_lists-list" class="container grid grid-cols-1 my-6 border border-slate-300 rounded">
+  <%= render partial: 'recipient_lists_list', locals: { recipient_lists: @recipient_lists } %>
+</div>
+
+<div class="mt-8">
+  <%= link_to 'New recipient_list', new_recipient_list_path, class: 'blue-button' %>
+</div>
