@@ -14,10 +14,10 @@ RSpec.describe 'RecipientLists' do
       new_user_email = 'test@you.you'
 
       visit recipient_lists_path
-      expect(page).to have_current_path('/recipient_lists', ignore_query: true)
+      expect(page).to have_current_path(recipient_lists_path)
       click_link 'New Recipient List'
 
-      expect(page).to have_current_path('/recipient_lists/new', ignore_query: true)
+      expect(page).to have_current_path(new_recipient_list_path)
       fill_in 'Name', with: new_user_email
       click_button 'Save'
 
@@ -26,7 +26,7 @@ RSpec.describe 'RecipientLists' do
       expect(page).to have_content(new_user_email)
       click_link 'Back'
 
-      expect(page).to have_current_path('/recipient_lists', ignore_query: true)
+      expect(page).to have_current_path(recipient_lists_path, ignore_query: true)
       expect(page).to have_content(new_user_email)
     end
   end

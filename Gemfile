@@ -64,6 +64,7 @@ group :development do
   gem 'brakeman', require: false
   gem 'bundler-audit', require: false
   gem 'capybara', require: false
+  gem 'launchy', require: false
   gem 'reek', require: false
   gem 'rubocop', require: false
   gem 'rubocop-capybara', require: false

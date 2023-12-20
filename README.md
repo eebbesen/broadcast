@@ -25,8 +25,15 @@ bin/rake db:seed:replant
 ```
 
 ## Tests
+Both system and unit tests are present
 ```bash
 rspec
+```
+
+### viewing rendered pages during system tests
+When at a breakpoint, enter the following on the console
+```bash
+save_and_open_page
 ```
 
 ## Linters
