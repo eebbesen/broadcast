@@ -1,5 +1,9 @@
+![tests](https://github.com/eebbesen/broadcast/actions/workflows/test_lint.yml/badge.svg)
+
 # Broadcast
-Send SMS to distinct groups of recipients
+Send SMS to distinct groups of recipients. Allow numbers to subscribe to topics.
+
+*under development, not fully functional*
 
 
 # Developers
