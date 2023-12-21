@@ -54,6 +54,7 @@ group :development, :test do
   gem 'debug', platforms: %i[mri windows]
   gem 'faker'
   gem 'rspec-rails'
+  gem 'selenium-webdriver'
 end
 
 group :development do

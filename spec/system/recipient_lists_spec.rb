@@ -5,7 +5,6 @@ require 'rails_helper'
 
 RSpec.describe 'RecipientLists' do
   before do
-    driven_by(:rack_test)
     sign_in(create(:user))
   end
 
