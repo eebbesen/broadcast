@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CreateMessageRecipientLists < ActiveRecord::Migration[7.1]
   def change
     create_table :message_recipient_lists do |t|

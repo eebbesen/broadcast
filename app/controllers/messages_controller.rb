@@ -23,7 +23,7 @@ class MessagesController < ApplicationController
 
   # POST /messages or /messages.json
   def create
-    @message = Message.new(message_params.merge(status: Message.statuses[:unsent]).merge(user: current_user))
+    @message = Message.new(message_params.merge(status: Message.statuses[:unsent], user: current_user))
 
     respond_to do |format|
       if @message.save
@@ -68,6 +68,6 @@ class MessagesController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def message_params
-    params.require(:message).permit(:content, :status, :sent_at, :user_id)
+    params.require(:message).permit(:content, :status, :user_id, recipient_list_ids: [])
   end
 end

@@ -131,6 +131,16 @@ RSpec.describe '/messages' do
           end.to change(Message, :count).by(1)
         end
 
+        it 'creates a new Message with recipient_lists' do
+          recipient_list = create(:recipient_list)
+          rli = { recipient_list_ids: [recipient_list.id] }
+          expect do
+            expect do
+              post messages_url, params: { message: valid_create_attributes.merge(rli) }
+            end.to change(Message, :count).by(1)
+          end.to change(MessageRecipientList, :count).by(1)
+        end
+
         it 'redirects to the created message' do
           post messages_url, params: { message: valid_attributes }
           expect(response).to redirect_to(message_url(Message.last))

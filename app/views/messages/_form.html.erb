@@ -19,11 +19,10 @@
   <div class="py-4 font-bold">Recipient Lists</div>
   <div id="recipient-lists">
     <% current_user.recipient_lists.each do |rl| %>
-      <div>
-        <%= form.check_box(rl.name.to_sym, class: 'align-middle mr-2 rounded') %>
-        <%= form.label(rl.name.to_sym, rl.name, class: 'align-middle') %>
-      </div>
+      <input id="user_recipient_list_ids_<%= rl.id %>" name="message[recipient_list_ids][]" type="checkbox" value="<%= rl.id %>" class="" />
+      <label for="user_recipient_list_ids_<%= rl.id %>" class="align-middle"><%= rl.name %></label>
     <% end %>
+    <input name="message[recipient_list_ids][]" type="hidden" value="" />
   </div>
 
   <div class="mt-8 nine-grid">
