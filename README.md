@@ -1,4 +1,5 @@
 ![tests](https://github.com/eebbesen/broadcast/actions/workflows/test_lint.yml/badge.svg)
+See test GitHub Action run for code coverage percentage
 
 # Broadcast
 Send SMS to distinct groups of recipients. Allow numbers to subscribe to topics.
