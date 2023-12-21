@@ -13,18 +13,10 @@ class MessageRecipientsController < ApplicationController
   # GET /message_recipients/1 or /message_recipients/1.json
   def show; end
 
-  # GET /message_recipients/1/edit
-  def edit; end
-
   private
 
   # Use callbacks to share common setup or constraints between actions.
   def set_message_recipient
     @message_recipient = MessageRecipient.find(params[:id])
-  end
-
-  # Only allow a list of trusted parameters through.
-  def message_recipient_params
-    params.require(:message_recipient).permit(:status, :error, :sid, :message_id, :recipient_id)
   end
 end
