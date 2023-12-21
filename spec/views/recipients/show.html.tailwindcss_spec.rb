@@ -17,8 +17,7 @@ RSpec.describe 'recipients/show' do
     ['Content', 'Status', 'Sent At'].each { |h| expect(rendered).to include(h) }
     recipient.messages
              .each do |m|
-      [m.content, m.status, ui_date(m.sent_at)]
-        .each { |a| expect(rendered).to include(a) }
+      [m.content, m.status, ui_date(m.sent_at)].each { |a| expect(rendered).to include(a) }
     end
   end
 end

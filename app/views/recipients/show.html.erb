@@ -5,8 +5,8 @@
 <div class="mt-8 nine-grid">
   <%= link_to 'Edit', edit_recipient_path(@recipient), class: 'blue-button col-start-1 mr-5' %>
   <%= link_to 'Back', recipients_path, class: 'blue-button col-start-2 ml-5' %>
-  <%= button_to 'Delete', @recipient, method: :delete, form_class: 'col-start-9 ml-5 flex justify-end',
-  class: 'red-button w-full' %>
+  <%= button_to 'Delete', @recipient, method: :delete, form_class: 'delete-form',
+  class: 'red-button' %>
 </div>
 
 <div class="mt-8">
