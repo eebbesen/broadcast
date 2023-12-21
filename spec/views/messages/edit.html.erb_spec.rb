@@ -18,6 +18,7 @@ RSpec.describe 'messages/edit' do
 
     assert_select 'form[action=?][method=?]', message_path(message), 'post' do
       assert_select 'textarea', message.content
+      assert_select 'input[type=checkbox]'
     end
   end
 end
