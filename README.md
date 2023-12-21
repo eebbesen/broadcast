@@ -30,11 +30,17 @@ Both system and unit tests are present
 rspec
 ```
 
-### viewing rendered pages during system tests
+### System Tests
+#### viewing rendered pages during system tests
 When at a breakpoint, enter the following on the console
 ```bash
 save_and_open_page
 ```
+
+#### Headed Browser mode
+Tests tha execute JavaScript will need to mark themselves as `js: true` (see spec/system/navbar_spec.rb for an example). Per RSpec configuration in spec_helper these run in headless mode by default. Tests _not_ marked as `js: true` will use `driven_by :rack_test`. Note that tests `rack_test` is significantly faster than `selenium_chrome` so only tests that need to interact with JavaScript should be run with the latter.
+
+Should you desire to run in headed mode specify `driven_by :selenium_chrome` at the test level, block level, or by changing the config value in spec_helper.rb.
 
 ## Linters
 ```
