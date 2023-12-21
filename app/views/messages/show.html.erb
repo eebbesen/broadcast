@@ -8,3 +8,7 @@
   <%= button_to 'Delete', @message, method: :delete, form_class: 'delete-form',
   class: 'red-button' %>
 </div>
+
+<div class="mt-8">
+  <%= render partial: 'recipients/recipients_list', locals: { recipients: @message.recipients } %>
+</div>
