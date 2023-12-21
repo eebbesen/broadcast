@@ -1,5 +1,10 @@
+![tests](https://github.com/eebbesen/broadcast/actions/workflows/test_lint.yml/badge.svg)
+See test GitHub Action run for code coverage percentage
+
 # Broadcast
-Send SMS to distinct groups of recipients
+Send SMS to distinct groups of recipients. Allow numbers to subscribe to topics.
+
+*under development, not fully functional*
 
 
 # Developers
@@ -46,7 +51,7 @@ Should you desire to run in headed mode specify `driven_by :selenium_chrome` at 
 ```
 bundle exec rubocop
 bundle exec brakeman
-bundle exec bundler-audit
+bundle exec bundler-audit --update
 bundle exec reek
 ```
 

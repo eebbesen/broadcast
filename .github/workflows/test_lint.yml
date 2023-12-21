@@ -1,5 +1,5 @@
-# generated in GitHub, then modified
-name: "Ruby on Rails CI"
+# generated on GitHub, then modified
+name: "Tests and Linters"
 on: push
 
 jobs:
