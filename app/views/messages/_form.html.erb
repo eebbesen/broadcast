@@ -16,7 +16,17 @@
     <%= form.text_area :content, class: 'w-full' %>
   </div>
 
-    <div class="mt-8 nine-grid">
+  <div class="py-4 font-bold">Recipient Lists</div>
+  <div id="recipient-lists">
+    <% current_user.recipient_lists.each do |rl| %>
+      <div>
+        <%= form.check_box(rl.name.to_sym, class: 'align-middle mr-2 rounded') %>
+        <%= form.label(rl.name.to_sym, rl.name, class: 'align-middle') %>
+      </div>
+    <% end %>
+  </div>
+
+  <div class="mt-8 nine-grid">
     <%= form.submit 'Save', class: 'blue-button col-start-1 mr-5' %>
     <% path = request.path.end_with?('edit') ? message : messages_path %>
     <%= link_to 'Back', path, class: 'blue-button col-start-2 mr-5' %>

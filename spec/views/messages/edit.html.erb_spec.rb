@@ -3,12 +3,14 @@
 require 'rails_helper'
 
 RSpec.describe 'messages/edit' do
+  let!(:user) { create(:user_with_artifacts) }
   let(:message) do
     create(:sent_message)
   end
 
   before do
     assign(:message, message)
+    sign_in(user)
   end
 
   it 'renders the edit message form' do
