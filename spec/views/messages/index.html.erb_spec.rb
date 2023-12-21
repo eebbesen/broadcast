@@ -3,15 +3,11 @@
 require 'rails_helper'
 
 RSpec.describe 'messages/index' do
-  let(:messages) do
-    [
-      create(:sent_message),
-      create(:scheduled_message)
-    ]
-  end
+  let!(:user) { create(:user_with_artifacts) }
+  let(:messages) { user.messages }
 
   before do
-    assign(:messages, messages)
+    assign(:messages, user.messages)
   end
 
   it 'renders a list of messages' do

@@ -2,7 +2,7 @@
 
 FactoryBot.define do
   factory :recipient_list do
-    user
+    user { association(:user) }
     name { 'Park Updates' }
     recipients { create_list(:recipient, 2) }
   end

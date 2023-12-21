@@ -3,16 +3,14 @@
 FactoryBot.define do
   factory :message do
     user
+    content { 'Upcoming construction' }
+    status { Message.statuses[:scheduled] }
 
     factory :sent_message do
       content { 'Parks information' }
       status { Message.statuses[:sent] }
       sent_at { DateTime.now - 3 }
-    end
-
-    factory :scheduled_message do
-      content { 'Upcoming construction' }
-      status { Message.statuses[:scheduled] }
+      message_recipients { [association(:message_recipient)] }
     end
   end
 end

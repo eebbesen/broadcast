@@ -9,6 +9,7 @@ RSpec.describe 'recipient_lists/show' do
 
   it 'renders attributes' do
     render
+
     expect(rendered).to include('Name')
     expect(rendered).to include(recipient_list.name)
     %w[Phone Status Messages].each { |h| expect(rendered).to include(h) }
