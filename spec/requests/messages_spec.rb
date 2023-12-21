@@ -80,11 +80,11 @@ RSpec.describe '/messages' do
     end
 
     describe 'DELETE /destroy' do
-      let!(:scheduled_message) { create(:scheduled_message, user:) }
+      let!(:message) { create(:message, user:) }
 
       it 'does not destroy the requested message' do
         expect do
-          delete message_url(scheduled_message)
+          delete message_url(message)
         end.not_to change(Message, :count)
         expect(response).to have_http_status(:found)
         expect(response).not_to be_successful
@@ -174,11 +174,11 @@ RSpec.describe '/messages' do
     end
 
     describe 'DELETE /destroy' do
-      let!(:scheduled_message) { create(:scheduled_message, user:) }
+      let!(:message) { create(:message, user:) }
 
       it 'destroys the requested message' do
         expect do
-          delete message_url(scheduled_message)
+          delete message_url(message)
         end.to change(Message, :count).by(-1)
         expect(response).to redirect_to(messages_url)
       end

@@ -2,7 +2,7 @@
 
 FactoryBot.define do
   factory :message_recipient do
-    message { association(:sent_message) }
+    message
     recipient
     status { MessageRecipient.statuses[:success] }
     sid { Helper.new.fake_sid }
