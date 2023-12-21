@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2023_12_19_222026) do
+ActiveRecord::Schema[7.1].define(version: 2023_12_21_051529) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -63,6 +63,15 @@ ActiveRecord::Schema[7.1].define(version: 2023_12_19_222026) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "recipients_recipient_lists", force: :cascade do |t|
+    t.bigint "recipient_id", null: false
+    t.bigint "recipient_list_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["recipient_id"], name: "index_recipients_recipient_lists_on_recipient_id"
+    t.index ["recipient_list_id"], name: "index_recipients_recipient_lists_on_recipient_list_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -79,4 +88,6 @@ ActiveRecord::Schema[7.1].define(version: 2023_12_19_222026) do
   add_foreign_key "message_recipients", "recipients"
   add_foreign_key "messages", "users"
   add_foreign_key "recipient_lists", "users"
+  add_foreign_key "recipients_recipient_lists", "recipient_lists"
+  add_foreign_key "recipients_recipient_lists", "recipients"
 end

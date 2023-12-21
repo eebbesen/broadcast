@@ -16,6 +16,10 @@ RSpec.describe 'recipient_lists/index' do
 
   it 'renders a list of recipient lists' do
     render
-    recipient_lists.each { |rl| expect(rendered).to include(rl.name) }
+    %w[Name User Recipients].each { |h| expect(rendered).to include(h) }
+    recipient_lists.each do |rl|
+      [rl.name, rl.user.email, rl.recipients.count.to_s]
+        .each { |a| expect(rendered).to include(a) }
+    end
   end
 end
