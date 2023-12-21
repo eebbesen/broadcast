@@ -7,6 +7,8 @@ RSpec.describe Message do
     it { is_expected.to belong_to :user }
     it { is_expected.to have_many :message_recipients }
     it { is_expected.to have_many(:recipients).through(:message_recipients) }
+    it { is_expected.to have_many(:message_recipient_lists) }
+    it { is_expected.to have_many(:recipient_lists).through(:message_recipient_lists) }
     it { is_expected.to validate_presence_of :content }
     it { is_expected.to validate_presence_of :status }
   end
