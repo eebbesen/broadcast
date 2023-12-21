@@ -50,7 +50,7 @@ Should you desire to run in headed mode specify `driven_by :selenium_chrome` at 
 ```
 bundle exec rubocop
 bundle exec brakeman
-bundle exec bundler-audit
+bundle exec bundler-audit --update
 bundle exec reek
 ```
 
