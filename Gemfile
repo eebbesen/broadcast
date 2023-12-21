@@ -55,7 +55,6 @@ group :development, :test do
   gem 'faker'
   gem 'rspec-rails'
   gem 'selenium-webdriver'
-  gem 'simplecov-console'
 end
 
 group :development do
@@ -84,4 +83,5 @@ group :test do
   gem 'factory_bot_rails'
   gem 'shoulda-matchers'
   gem 'simplecov', require: false
+  gem 'simplecov-console', require: false
 end
