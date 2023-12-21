@@ -11,7 +11,7 @@
       st = i.odd? ? ' bg-slate-100 ' : ''
       st += i == recipients.size ? ' rounded-b ' : ''
     %>
-      <%= link_to recipient_path(r.id) do %>
+      <%= link_to recipient_path(r.id), id: "link-recipient-#{r.id}" do %>
         <div id="<%= dom_id r %>" class="grid grid-cols-6 border border-slate-300 p-4 <%= st %>">
           <div>
             <%= r.phone %>
