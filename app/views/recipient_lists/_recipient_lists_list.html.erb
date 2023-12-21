@@ -1,6 +1,6 @@
 <div>
   <div id="header-row" class="grid grid-cols-6 bg-slate-300 rounded-t p-4">
-    <% %w(Name User).each do |h| %>
+    <% %w(Name User Recipients).each do |h| %>
       <div class="header-item font-bold">
         <%= h %>
       </div>
@@ -18,6 +18,9 @@
           </div>
           <div>
             <%= rl.user.email %>
+          </div>
+          <div>
+            <%= rl.recipients.count %>
           </div>
         </div>
       <% end %>

@@ -51,7 +51,6 @@ RSpec.describe 'RecipientLists' do
 
         click_button('Navigate')
         expect(page).not_to have_content('Recipient Lists')
-        expect(page).not_to have_content('Recipients')
         expect(page).not_to have_content('Messages')
       end
 

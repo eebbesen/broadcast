@@ -26,7 +26,7 @@ Admin.create!(email: 'you@example.com', password: 'S3Kr1t!')
 
 Create users via http://localhost:3000/users/sign_in or via the Rails console, then seed
 ```bash
-bin/rake db:seed:replant
+bin/rails db:seed:replant
 ```
 
 ## Tests
