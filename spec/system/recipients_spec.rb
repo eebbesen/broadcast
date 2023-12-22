@@ -4,9 +4,7 @@
 require 'rails_helper'
 
 RSpec.describe 'Recipient' do
-  before do
-    sign_in(create(:user))
-  end
+  before { sign_in(create(:user)) }
 
   describe 'from recipient index' do
     let!(:recipient) { create(:recipient) }

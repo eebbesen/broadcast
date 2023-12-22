@@ -20,7 +20,7 @@
             <%= m.status %>
           </div>
           <div>
-            <%= m.recipients.count %>
+            <%= m.sent_at ? m.recipients.count : m.recipient_lists.map(&:recipients).flatten.count %>
           </div>
           <div>
             <%= ui_date(m.sent_at) %>

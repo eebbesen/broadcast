@@ -1,0 +1,25 @@
+<div>
+  <div id="header-row" class="grid grid-cols-6 bg-slate-300 rounded-t p-4">
+    <% %w(Phone Status).each do |h| %>
+      <div class="header-item font-bold">
+        <%= h %>
+      </div>
+    <% end %>
+  </div>
+  <div id="data">
+
+    <% recipient_lists.map(&:recipients).flatten.uniq.each_with_index do |r, i|
+      st = i.odd? ? ' bg-slate-100 ' : ''
+      st += i == recipient_lists.size ? ' rounded-b ' : ''
+    %>
+      <div id="<%= dom_id r %>" class="grid grid-cols-6 border border-slate-300 p-4 <%= st %>">
+        <div>
+          <%= r.phone %>
+        </div>
+        <div>
+          <%= r.status %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
