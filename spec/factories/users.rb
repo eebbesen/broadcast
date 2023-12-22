@@ -7,6 +7,7 @@ FactoryBot.define do
 
     factory :user_with_artifacts do
       messages { [association(:sent_message), association(:sent_message)] }
+      recipient_lists { [association(:recipient_list)] }
     end
   end
 end

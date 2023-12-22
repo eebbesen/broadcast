@@ -12,11 +12,17 @@ RSpec.describe 'messages/show' do
   it 'renders attributes' do
     render
 
-    ['Content', 'Status', 'Sent At'].each { |h| expect(rendered).to include(h) }
-    [message.content, message.status.capitalize].each { |a| expect(rendered).to include(a) }
-    %w[Phone Status Messages].each { |h| expect(rendered).to include(h) }
-    message.recipients.each do |r|
-      [r.phone, r.status, r.messages.count.to_s].each { |a| expect(rendered).to include(a) }
+    ['Content', 'Status', 'Sent At', 'Recipient Lists', 'Recipients']
+      .each { |h| expect(rendered).to include(h) }
+    [
+      message.content,
+      message.status.capitalize,
+      ui_date(message.sent_at),
+      message.message_recipients.count.to_s
+    ].each { |a| expect(rendered).to include(a) }
+    %w[Phone Status Error].each { |h| expect(rendered).to include(h) }
+    message.message_recipients.each do |mr|
+      [mr.recipient.phone, mr.status].each { |a| expect(rendered).to include(a) }
     end
   end
 end
