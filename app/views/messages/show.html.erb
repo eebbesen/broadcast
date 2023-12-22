@@ -10,5 +10,11 @@
 </div>
 
 <div class="mt-8">
-  <%= render partial: 'recipients/recipients_list', locals: { recipients: @message.recipients } %>
+  <p class="font-bold py-4">Recipient Lists</p>
+  <%= render partial: 'recipient_lists/recipient_lists_list', locals: { recipient_lists: @message.recipient_lists } %>
+</div>
+
+<div class="mt-8">
+  <p class="font-bold py-4">Recipients</p>
+  <%= render partial: 'message_recipients/message_recipients_list', locals: { message_recipients: @message.message_recipients } %>
 </div>
