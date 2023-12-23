@@ -6,7 +6,7 @@ RSpec.describe 'MessageService' do
   let(:message_service) { MessageService.new }
 
   describe 'send_message' do
-    it 'succeeds when message has recipients' do
+    it 'logs succeess when recipients are successful' do
       message = create(:message)
 
       expect do
@@ -16,7 +16,7 @@ RSpec.describe 'MessageService' do
       end.to change(MessageRecipient.where(status: :queued), :count).by(2)
     end
 
-    it 'throws exception when no recipients' do
+    it 'logs failures when recipients are unsuccessful' do
       invalid_recipient = create(:recipient, phone: '5005550001')
       rl = create(:recipient_list, recipients: [invalid_recipient])
       message = create(:message, recipient_lists: [rl])

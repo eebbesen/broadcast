@@ -27,7 +27,11 @@ jobs:
       - name: Set up database schema
         run: bin/rails db:schema:load
       - name: Run tests
-        run: bin/rake
+        env:
+          TWILIO_TEST_SID: ${{ secrets.TWILIO_TEST_SID }}
+          TWILIO_TEST_TOKEN: ${{ secrets.TWILIO_TEST_TOKEN }}
+
+        run: bin/rspec
 
   lint:
     runs-on: ubuntu-latest
