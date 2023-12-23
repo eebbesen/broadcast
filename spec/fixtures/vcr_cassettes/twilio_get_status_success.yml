@@ -1,0 +1,76 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://api.twilio.com/2010-04-01/Accounts/AC2a4b18f32baa56dcef13ae52ecb588ae/Messages/SM9aa0a32fdda5e9b0007a4f6504d706d8.json
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - twilio-ruby/6.9.0 (darwin23 arm64) Ruby/3.2.2
+      Accept-Charset:
+      - utf-8
+      Accept:
+      - application/json
+      Authorization:
+      - Basic aaaa
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Sat, 23 Dec 2023 21:26:27 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Content-Length:
+      - '972'
+      Connection:
+      - keep-alive
+      Last-Modified:
+      - Mon, 01 May 2023 19:46:42 +0000
+      Etag:
+      - 5a73f2c4323f8e48e76f02266183a471
+      Access-Control-Allow-Origin:
+      - "*"
+      Access-Control-Allow-Headers:
+      - Accept, Authorization, Content-Type, If-Match, If-Modified-Since, If-None-Match,
+        If-Unmodified-Since, Idempotency-Key
+      Access-Control-Allow-Credentials:
+      - 'true'
+      Access-Control-Allow-Methods:
+      - GET, POST, DELETE, OPTIONS
+      Access-Control-Expose-Headers:
+      - ETag
+      Twilio-Request-Id:
+      - RQaaaa
+      Twilio-Request-Duration:
+      - '0.037'
+      Twilio-Concurrent-Requests:
+      - '1'
+      X-Shenanigans:
+      - none
+      X-Powered-By:
+      - AT-5000
+      X-Home-Region:
+      - us1
+      X-Api-Domain:
+      - api.twilio.com
+    body:
+      encoding: UTF-8
+      string: '{"body": "Parks information updated", "num_segments":
+        "1", "direction": "outbound", "from": "+16515551212", "date_updated": "Mon,
+        01 May 2023 19:46:42 +0000", "price": "-0.00790", "error_message": null, "uri":
+        "/2010-04-01/Accounts/AC2a4b18f32baa56dcef13ae52ecb588ae/Messages/SM9aa0a32fdda5e9b0007a4f6504d706d8.json",
+        "account_sid": "AC2a4b18f32baa56dcef13ae52ecb588ae", "num_media": "0", "to":
+        "+16125551212", "date_created": "Mon, 01 May 2023 19:46:42 +0000", "status":
+        "sent", "sid": "SM9aa0a32fdda5e9b0007a4f6504d706d8", "date_sent": "Mon,
+        01 May 2023 19:46:42 +0000", "messaging_service_sid": null, "error_code":
+        null, "price_unit": "USD", "api_version": "2010-04-01", "subresource_uris":
+        {"media": "/2010-04-01/Accounts/AC2a4b18f32baa56dcef13ae52ecb588ae/Messages/SM9aa0a32fdda5e9b0007a4f6504d706d8/Media.json",
+        "feedback": "/2010-04-01/Accounts/AC2a4b18f32baa56dcef13ae52ecb588ae/Messages/SM9aa0a32fdda5e9b0007a4f6504d706d8/Feedback.json"}}'
+  recorded_at: Sat, 23 Dec 2023 21:26:27 GMT
+recorded_with: VCR 6.2.0

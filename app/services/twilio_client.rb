@@ -25,6 +25,14 @@ class TwilioClient
     raise e
   end
 
+  # calls Twilio to get the status of an individual SMS message
+  # consider implementing a callback when sending messages instead
+  # how to fetch: https://www.twilio.com/docs/messaging/api/message-resource#fetch-a-message-resource
+  # valid statuses: https://www.twilio.com/docs/messaging/guides/outbound-message-status-in-status-callbacks
+  def get_status(sid)
+    @client.messages(sid).fetch
+  end
+
   def self.format_phone(phone)
     return phone if phone.starts_with?('+1')
 
