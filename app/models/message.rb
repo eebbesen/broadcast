@@ -11,4 +11,11 @@ class Message < ApplicationRecord
   has_many :recipient_lists, through: :message_recipient_lists
   validates :content, presence: true
   validates :status, presence: true
+
+  # At send-time recipients are taken from recipient lists.
+  # This menthod references the recipient lists associated with the message
+  #  to get the recipients they contain
+  def list_recipients
+    recipient_lists.map(&:recipients).flatten
+  end
 end

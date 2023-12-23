@@ -5,6 +5,7 @@ FactoryBot.define do
     user
     content { "Upcoming construction: #{Faker::Address.street_name}" }
     status { Message.statuses[:scheduled] }
+    recipient_lists { [create(:recipient_list, user:)] }
 
     factory :sent_message do
       content { "Parks information: #{Faker::Address.community}" }

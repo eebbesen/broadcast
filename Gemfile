@@ -48,6 +48,7 @@ gem 'bootsnap', require: false
 
 gem 'devise'
 gem 'tailwindcss-rails'
+gem 'twilio-ruby'
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
@@ -55,6 +56,7 @@ group :development, :test do
   gem 'faker'
   gem 'rspec-rails'
   gem 'selenium-webdriver'
+  gem 'vcr', require: false
 end
 
 group :development do
@@ -83,4 +85,5 @@ group :test do
   gem 'factory_bot_rails'
   gem 'shoulda-matchers'
   gem 'simplecov', require: false
+  gem 'webmock'
 end

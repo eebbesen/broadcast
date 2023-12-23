@@ -1,0 +1,66 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://api.twilio.com/2010-04-01/Accounts/AC2a4b18f32baa56dcef13ae52ecb588ae/Messages.json
+    body:
+      encoding: UTF-8
+      string: Body=test%3A+2023-12-22T21%3A42%3A04-06%3A00&From=%2B15005550006&To=%2B15005550009
+    headers:
+      User-Agent:
+      - twilio-ruby/6.9.0 (darwin23 arm64) Ruby/3.2.2
+      Accept-Charset:
+      - utf-8
+      Content-Type:
+      - application/x-www-form-urlencoded
+      Accept:
+      - application/json
+      Authorization:
+      - Basic aaaa
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+  response:
+    status:
+      code: 400
+      message: Bad Request
+    headers:
+      Date:
+      - Sat, 23 Dec 2023 03:42:04 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Content-Length:
+      - '157'
+      Connection:
+      - keep-alive
+      Access-Control-Allow-Origin:
+      - "*"
+      Access-Control-Allow-Headers:
+      - Accept, Authorization, Content-Type, If-Match, If-Modified-Since, If-None-Match,
+        If-Unmodified-Since, Idempotency-Key
+      Access-Control-Allow-Credentials:
+      - 'true'
+      Access-Control-Allow-Methods:
+      - GET, POST, DELETE, OPTIONS
+      Access-Control-Expose-Headers:
+      - ETag
+      Twilio-Request-Id:
+      - RQaaaa
+      Twilio-Request-Duration:
+      - '0.045'
+      Twilio-Concurrent-Requests:
+      - '1'
+      X-Shenanigans:
+      - none
+      X-Powered-By:
+      - AT-5000
+      X-Home-Region:
+      - us1
+      X-Api-Domain:
+      - api.twilio.com
+    body:
+      encoding: UTF-8
+      string: '{"code": 21614, "message": "''To'' number: +1500555XXXX, is not a valid
+        mobile number", "more_info": "https://www.twilio.com/docs/errors/21614", "status":
+        400}'
+  recorded_at: Sat, 23 Dec 2023 03:42:04 GMT
+recorded_with: VCR 6.2.0

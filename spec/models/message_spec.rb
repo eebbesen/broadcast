@@ -12,4 +12,18 @@ RSpec.describe Message do
     it { is_expected.to validate_presence_of :content }
     it { is_expected.to validate_presence_of :status }
   end
+
+  describe 'list_recipients' do
+    it 'gets recipients from lists' do
+      message = create(:message)
+      rls = message.recipient_lists
+      expected_recipients = rls.map(&:recipients).flatten
+      expect(!expected_recipients.empty?).to be_truthy
+
+      lrs = message.list_recipients
+
+      expect(lrs.count).to eq(expected_recipients.size)
+      expected_recipients.each { |er| expect(lrs.pluck(:phone)).to include(er.phone) }
+    end
+  end
 end

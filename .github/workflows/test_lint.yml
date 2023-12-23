@@ -27,6 +27,9 @@ jobs:
       - name: Set up database schema
         run: bin/rails db:schema:load
       - name: Run tests
+        env:
+          TWILIO_TEST_SID: ${{ secrets.TWILIO_TEST_SID }}
+          TWILIO_TEST_TOKEN: ${{ secrets.TWILIO_TEST_TOKEN }}
         run: bin/rake
 
   lint:

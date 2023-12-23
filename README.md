@@ -7,12 +7,21 @@ Send SMS to distinct groups of recipients. Allow numbers to subscribe to topics.
 
 *under development, not fully functional*
 
+## Twilio Configuration
+To send messages the following environment variables will need to be set
+```
+TWILIO_SID
+TWILIO_TOKEN
+TWILIO_PHONE
+```
 
 # Developers
 ## Prerequisities
 * Have a PostgreSQL instance available or modify the application to use another database
   * replace `pg` references in the Gemfile
   * update `config/database.yml`
+* Have a Twilio account (if you will be sending messages to Twiliio)
+  * Twilio accounts allow test accounts, which will allow you to interact with Twilio services but not actually send messages _or_ charge you per send.
 
 ## Setup
 ```bash
@@ -35,6 +44,17 @@ Both system and unit tests are present
 ```bash
 rspec
 ```
+
+### Twilio
+To reduce effort and prevent the sending of real SMS while testing, `rails_helper.rb` will set Twilio send values (`SID`, `TOKEN`, and `PHONE`) to test versions if you have them declared in your environment variables _unless_ you have the variables on the left already populated:
+
+```
+TWILIO_SID ||= ENV['TWILIO_TEST_SID']
+TWILIO_TOKEN ||= ENV['TWILIO_TEST_TOKEN']
+TWILIO_PHONE ||= '+15005550006'
+```
+
+See https://www.twilio.com/docs/iam/test-credentials for details. The `TWILIO_PHONE` when using test credentials needs to be one of a few specific numbers, which is why the value is hard-coded above
 
 ### System Tests
 #### viewing rendered pages during system tests

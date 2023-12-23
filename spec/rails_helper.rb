@@ -3,6 +3,7 @@
 # This file is copied to spec/ when you run 'rails generate rspec:install'
 require 'spec_helper'
 require 'test_helper'
+require 'vcr'
 
 ENV['RAILS_ENV'] ||= 'test'
 require_relative '../config/environment'
@@ -92,3 +93,13 @@ Shoulda::Matchers.configure do |config|
     with.library :rails
   end
 end
+
+VCR.configure do |config|
+  config.cassette_library_dir = 'spec/fixtures/vcr_cassettes'
+  config.hook_into :webmock
+  config.ignore_localhost = true
+end
+
+ENV['TWILIO_SID'] ||= ENV.fetch('TWILIO_TEST_SID', nil)
+ENV['TWILIO_TOKEN'] ||= ENV.fetch('TWILIO_TEST_TOKEN', nil)
+ENV['TWILIO_PHONE'] ||= '+15005550006'
