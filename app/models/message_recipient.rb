@@ -17,4 +17,7 @@ class MessageRecipient < ApplicationRecord
   belongs_to :message
   belongs_to :recipient
   validates :status, presence: true
+
+  scope :queued, -> { where(status: [:queued]) }
+  scope :sent, -> { where(status: [:sent]) }
 end
