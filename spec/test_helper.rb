@@ -7,6 +7,6 @@ class Helper
   include RecipientsHelper
 
   def fake_sid
-    "MM#{Faker::Alphanumeric.alphanumeric(number: 32, min_alpha: 10, min_numeric: 10)}"
+    "SM#{Faker::Alphanumeric.alphanumeric(number: 32, min_alpha: 10, min_numeric: 10)}"
   end
 end
