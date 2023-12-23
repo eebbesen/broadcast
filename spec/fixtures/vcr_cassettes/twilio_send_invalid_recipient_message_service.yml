@@ -5,7 +5,7 @@ http_interactions:
     uri: https://api.twilio.com/2010-04-01/Accounts/AC2a4b18f32baa56dcef13ae52ecb588ae/Messages.json
     body:
       encoding: UTF-8
-      string: Body=test%3A+2023-12-22T18%3A25%3A22-06%3A00&From=%2B15005550006&To=%2B16515551212
+      string: Body=Upcoming+construction%3A+Murphy+Haven&From=%2B15005550006&To=%2B15005550001
     headers:
       User-Agent:
       - twilio-ruby/6.9.0 (darwin23 arm64) Ruby/3.2.2
@@ -21,15 +21,15 @@ http_interactions:
       - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
   response:
     status:
-      code: 201
-      message: Created
+      code: 400
+      message: Bad Request
     headers:
       Date:
-      - Sat, 23 Dec 2023 00:25:22 GMT
+      - Sat, 23 Dec 2023 18:12:53 GMT
       Content-Type:
       - application/json; charset=utf-8
       Content-Length:
-      - '795'
+      - '141'
       Connection:
       - keep-alive
       Access-Control-Allow-Origin:
@@ -44,9 +44,9 @@ http_interactions:
       Access-Control-Expose-Headers:
       - ETag
       Twilio-Request-Id:
-      - RQ9aaaa
+      - RQaaaa
       Twilio-Request-Duration:
-      - '0.047'
+      - '0.042'
       Twilio-Concurrent-Requests:
       - '1'
       X-Shenanigans:
@@ -59,13 +59,7 @@ http_interactions:
       - api.twilio.com
     body:
       encoding: UTF-8
-      string: '{"body": "test: 2023-12-22T18:25:22-06:00", "num_segments": "1", "direction":
-        "outbound-api", "from": "+15005550006", "date_updated": "Sat, 23 Dec 2023
-        00:25:22 +0000", "price": null, "error_message": null, "uri": "/2010-04-01/Accounts/AC2a4b18f32baa56dcef13ae52ecb588ae/Messages/SM9aa0a32fdda5e9b0007a4f6504d706d8.json",
-        "account_sid": "AC2a4b18f32baa56dcef13ae52ecb588ae", "num_media": "0", "to":
-        "+16515551212", "date_created": "Sat, 23 Dec 2023 00:25:22 +0000", "status":
-        "queued", "sid": "SM9aa0a32fdda5e9b0007a4f6504d706d8", "date_sent": null,
-        "messaging_service_sid": null, "error_code": null, "price_unit": "USD", "api_version":
-        "2010-04-01", "subresource_uris": {"media": "/2010-04-01/Accounts/AC2a4b18f32baa56dcef13ae52ecb588ae/Messages/SM9aa0a32fdda5e9b0007a4f6504d706d8/Media.json"}}'
-  recorded_at: Sat, 23 Dec 2023 00:25:22 GMT
+      string: '{"code": 21211, "message": "Invalid ''To'' Phone Number: +1500555XXXX",
+        "more_info": "https://www.twilio.com/docs/errors/21211", "status": 400}'
+  recorded_at: Sat, 23 Dec 2023 18:12:53 GMT
 recorded_with: VCR 6.2.0

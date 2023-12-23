@@ -16,7 +16,7 @@ http_interactions:
       Accept:
       - application/json
       Authorization:
-      - Basic QUMyYTRiMThmMzJiYWE1NmRjZWYxM2FlNTJlY2I1ODhhZToyMGVjMjU2MDFhMDIzYTA2OGQ1NWNlZjhmMWE2YjFjNw==
+      - Basic aaaa
       Accept-Encoding:
       - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
   response:
@@ -44,7 +44,7 @@ http_interactions:
       Access-Control-Expose-Headers:
       - ETag
       Twilio-Request-Id:
-      - RQc23a9df2280ea4ab8752cd7933f31514
+      - RQaaaa
       Twilio-Request-Duration:
       - '0.045'
       Twilio-Concurrent-Requests:
