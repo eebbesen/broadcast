@@ -18,10 +18,10 @@ class TwilioClient
       body:
     )
 
-    Rails.logger.info("Twilio send to #{to}:\n#{ret}\nDONE")
+    Rails.logger.info("Twilio send to #{to} succeeded:\n#{ret}\nDONE")
     ret
   rescue Twilio::REST::RestError => e
-    Rails.logger.error("Twilio send to #{to} failed:\n#{e}\nDONE")
+    Rails.logger.error("Twilio send to #{to} failed:\n#{e.message}\nDONE")
     raise e
   end
 
