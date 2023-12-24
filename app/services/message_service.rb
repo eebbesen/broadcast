@@ -2,8 +2,8 @@
 
 # Service to connect application to SMS sending
 class MessageService
-  def initialize
-    @twilio_client = TwilioClient.new
+  def initialize(client = TwilioClient.new)
+    @twilio_client = client
   end
 
   def send_message(message) # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
