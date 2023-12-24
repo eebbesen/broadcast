@@ -6,6 +6,56 @@ RSpec.describe 'MessageService' do
   let(:message_service) { MessageService.new }
 
   describe 'send_message' do
+    it 'fails when invalid Twilio SID' do
+      client = message_service
+               .instance_variable_get(:@twilio_client)
+               .instance_variable_get(:@client)
+      orig_auth = client.instance_variable_get(:@auth)
+      # ensure auth fails by setting invalid account SID
+
+      client.instance_variable_set(:@account_sid, 'invalid')
+      client.instance_variable_set(:@auth, ['invald', orig_auth[1]])
+      client.instance_variable_set(:@username, 'invalid')
+
+      message = create(:message)
+
+      expect do
+        expect do
+          VCR.use_cassette('twilio_send_invalid_sid_failure_message_service') do
+            message_service.send_message(message)
+          end
+        end.to change(Message.where(status: :failed), :count).by(1)
+      end.to change(MessageRecipient.where(status: :failed), :count).by(2)
+    end
+
+    it 'fails when invalid Twilio token' do
+      client = message_service
+               .instance_variable_get(:@twilio_client)
+               .instance_variable_get(:@client)
+      orig_auth = client.instance_variable_get(:@auth)
+      # ensure auth fails by setting invalid account SID
+      client.instance_variable_set(:@auth_token, 'invalid')
+      client.instance_variable_set(:@auth, [orig_auth[0], 'invalid'])
+      client.instance_variable_set(:@password, 'invalid')
+
+      message = create(:message)
+
+      expect do
+        expect do
+          VCR.use_cassette('twilio_send_invalid_token_failure_message_service') do
+            message_service.send_message(message)
+          end
+        end.to change(Message.where(status: :failed), :count).by(1)
+      end.to change(MessageRecipient.where(status: :failed), :count).by(2)
+    end
+
+    it 'fails when no recipients' do
+      message = Message.new(content: 'No recipient lists', user: create(:user), status: :unsent)
+
+      expect(message_service.send_message(message)).not_to be_truthy
+      expect(message.errors.full_messages.first).to include('No recipients associated with message')
+    end
+
     it 'logs succeess when recipients are successful' do
       message = create(:message)
 

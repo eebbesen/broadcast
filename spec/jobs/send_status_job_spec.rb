@@ -8,7 +8,7 @@ RSpec.describe SendStatusJob do
 
     allow_any_instance_of(TwilioClient).to receive(:get_status) { sent_ret } # rubocop:disable RSpec/AnyInstance
 
-    create(:message_recipient, status: MessageRecipient.statuses[:queued])
+    create(:message_recipient, status: :queued)
 
     expect do
       described_class.new.perform

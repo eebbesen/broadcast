@@ -2,7 +2,7 @@
 
 # SMS Message
 class Message < ApplicationRecord
-  enum :status, { unsent: 'unsent', scheduled: 'scheduled', sent: 'sent' }
+  enum :status, { unsent: 'unsent', scheduled: 'scheduled', sent: 'sent', failed: 'failed' }
 
   belongs_to :user
   has_many :message_recipients, dependent: :destroy
@@ -17,5 +17,12 @@ class Message < ApplicationRecord
   #  to get the recipients they contain
   def list_recipients
     recipient_lists.map(&:recipients).flatten
+  end
+
+  def validate_sendable
+    return true unless list_recipients.count < 1
+
+    errors.add(:recipients, type: :invalid, message: 'No recipients associated with message')
+    false
   end
 end

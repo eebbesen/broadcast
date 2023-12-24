@@ -1,0 +1,121 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://api.twilio.com/2010-04-01/Accounts/AC2a4b18f32baa56dcef13ae52ecb588ae/Messages.json
+    body:
+      encoding: UTF-8
+      string: Body=Upcoming+construction%3A+Yahaira+Street&From=%2B15005550006&To=%2B17781173729
+    headers:
+      User-Agent:
+      - twilio-ruby/6.9.0 (darwin23 arm64) Ruby/3.2.2
+      Accept-Charset:
+      - utf-8
+      Content-Type:
+      - application/x-www-form-urlencoded
+      Accept:
+      - application/json
+      Authorization:
+      - Basic aaaa
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+  response:
+    status:
+      code: 401
+      message: Unauthorized
+    headers:
+      Date:
+      - Sun, 24 Dec 2023 11:07:42 GMT
+      Content-Type:
+      - application/json
+      Content-Length:
+      - '107'
+      Connection:
+      - keep-alive
+      Www-Authenticate:
+      - Basic realm="Twilio API"
+      Twilio-Request-Id:
+      - RQaaaa
+      X-Shenanigans:
+      - none
+      Access-Control-Allow-Origin:
+      - "*"
+      Access-Control-Allow-Headers:
+      - Accept, Authorization, Content-Type, If-Match, If-Modified-Since, If-None-Match,
+        If-Unmodified-Since, Idempotency-Key
+      Access-Control-Allow-Methods:
+      - GET, POST, DELETE, OPTIONS
+      Access-Control-Expose-Headers:
+      - ETag
+      Access-Control-Allow-Credentials:
+      - 'true'
+      X-Powered-By:
+      - AT-5000
+      X-Home-Region:
+      - us1
+      X-Api-Domain:
+      - api.twilio.com
+    body:
+      encoding: UTF-8
+      string: '{"code":20003,"message":"Authenticate","more_info":"https://www.twilio.com/docs/errors/20003","status":401}'
+  recorded_at: Sun, 24 Dec 2023 11:07:42 GMT
+- request:
+    method: post
+    uri: https://api.twilio.com/2010-04-01/Accounts/AC2a4b18f32baa56dcef13ae52ecb588ae/Messages.json
+    body:
+      encoding: UTF-8
+      string: Body=Upcoming+construction%3A+Yahaira+Street&From=%2B15005550006&To=%2B19694377281
+    headers:
+      User-Agent:
+      - twilio-ruby/6.9.0 (darwin23 arm64) Ruby/3.2.2
+      Accept-Charset:
+      - utf-8
+      Content-Type:
+      - application/x-www-form-urlencoded
+      Accept:
+      - application/json
+      Authorization:
+      - Basic aaaa
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+  response:
+    status:
+      code: 401
+      message: Unauthorized
+    headers:
+      Date:
+      - Sun, 24 Dec 2023 11:07:43 GMT
+      Content-Type:
+      - application/json
+      Content-Length:
+      - '107'
+      Connection:
+      - keep-alive
+      Www-Authenticate:
+      - Basic realm="Twilio API"
+      Twilio-Request-Id:
+      - RQaaaa
+      X-Shenanigans:
+      - none
+      Access-Control-Allow-Origin:
+      - "*"
+      Access-Control-Allow-Headers:
+      - Accept, Authorization, Content-Type, If-Match, If-Modified-Since, If-None-Match,
+        If-Unmodified-Since, Idempotency-Key
+      Access-Control-Allow-Methods:
+      - GET, POST, DELETE, OPTIONS
+      Access-Control-Expose-Headers:
+      - ETag
+      Access-Control-Allow-Credentials:
+      - 'true'
+      X-Powered-By:
+      - AT-5000
+      X-Home-Region:
+      - us1
+      X-Api-Domain:
+      - api.twilio.com
+    body:
+      encoding: UTF-8
+      string: '{"code":20003,"message":"Authenticate","more_info":"https://www.twilio.com/docs/errors/20003","status":401}'
+  recorded_at: Sun, 24 Dec 2023 11:07:42 GMT
+recorded_with: VCR 6.2.0

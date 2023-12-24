@@ -17,10 +17,10 @@ ActiveRecord::Base.transaction do
 
   # recipients
   3.times do
-    Recipient.create!(phone: Faker::Number.number(digits: 10), status: Recipient.statuses[:verified])
+    Recipient.create!(phone: Faker::Number.number(digits: 10), status: :verified)
   end
   2.times do
-    Recipient.create!(phone: Faker::Number.number(digits: 10), status: Recipient.statuses[:unverified])
+    Recipient.create!(phone: Faker::Number.number(digits: 10), status: :unverified)
   end
 
   # recipient lists
@@ -32,20 +32,20 @@ ActiveRecord::Base.transaction do
 
   # messages
   m1 = Message.create!(content: 'Thank you for subscribing to park information messages',
-                       user: User.first, status: Message.statuses[:sent],
+                       user: User.first, status: :sent,
                        sent_at: (DateTime.now - 4))
   m2 = Message.create!(content: 'Holiday garbage collection date changes',
-                       user: User.first, status: Message.statuses[:unsent])
+                       user: User.first, status: :unsent)
 
   Recipient.where(status: :verified).find_each do |r|
     MessageRecipient.create!(message: Message.first, recipient: r,
-                             sid: Helper.fake_sid, status: MessageRecipient.statuses[:queued])
+                             sid: Helper.fake_sid, status: :queued)
   end
   MessageRecipient.create!(message: Message.first, recipient: create(:recipient),
-                           sid: Helper.fake_sid, status: MessageRecipient.statuses[:failed],
+                           sid: Helper.fake_sid, status: :failed,
                            error: 'Not a mobile number')
   MessageRecipient.create!(message: Message.last, recipient: create(:recipient),
-                           sid: Helper.fake_sid, status: MessageRecipient.statuses[:pending])
+                           sid: Helper.fake_sid, status: :pending)
 
   m1.recipient_lists << rl1
   m2.recipient_lists << rl2

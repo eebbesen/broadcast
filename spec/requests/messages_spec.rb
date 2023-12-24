@@ -8,7 +8,7 @@ RSpec.describe '/messages' do
   # Message. As you add validations to Message, be sure to
   # adjust the attributes here as well.
   let(:valid_attributes) do
-    { content: 'Park activities this month', status: Message.statuses[:scheduled], user_id: user.id }
+    { content: 'Park activities this month', status: :scheduled, user_id: user.id }
   end
 
   let(:valid_create_attributes) { { content: 'Park activities this month' } }
@@ -62,10 +62,23 @@ RSpec.describe '/messages' do
       end
     end
 
+    describe 'POST /send' do
+      it 'does not send the Message' do
+        message = create(:message)
+
+        expect do
+          post send_message_url(message)
+          expect(response).to have_http_status(:found)
+          expect(response).not_to be_successful
+          expect(message.status).to eq(Message.statuses[:scheduled])
+        end.not_to change(MessageRecipient, :count)
+      end
+    end
+
     describe 'PATCH /update' do
       context 'with valid parameters' do
         let(:new_attributes) do
-          { content: 'Updated content', status: Message.statuses[:scheduled], user_id: user.id }
+          { content: 'Updated content', status: :scheduled, user_id: user.id }
         end
 
         it 'does not update the requested message' do
@@ -123,6 +136,36 @@ RSpec.describe '/messages' do
       end
     end
 
+    describe 'POST /send' do
+      describe 'with valid message' do
+        it 'sends the Message' do
+          allow_any_instance_of(TwilioClient).to receive(:send_single) { # rubocop:disable RSpec/AnyInstance
+                                                   Helper.fake_twilio_send(:queued, Helper.fake_sid)
+                                                 }
+          message = create(:message)
+
+          expect do
+            post send_message_url(message)
+            message.reload
+            expect(message.status).to eq(Message.statuses[:sent])
+          end.to change(MessageRecipient, :count).by(message.list_recipients.count)
+        end
+      end
+
+      describe 'with message that cannot be sent' do
+        it 'does not send the Message without recipients' do
+          message = create(:message, recipient_lists: [])
+
+          expect do
+            post send_message_url(message)
+            expect(response).to have_http_status(:unprocessable_entity)
+            message.reload
+            expect(message.status).to eq(Message.statuses[:scheduled])
+          end.not_to change(MessageRecipient, :count)
+        end
+      end
+    end
+
     describe 'POST /create' do
       context 'with valid parameters' do
         it 'creates a new Message' do
@@ -164,7 +207,7 @@ RSpec.describe '/messages' do
     describe 'PATCH /update' do
       context 'with valid parameters' do
         let(:new_attributes) do
-          { content: 'Updated content', status: Message.statuses[:scheduled], user_id: user.id }
+          { content: 'Updated content', status: :scheduled, user_id: user.id }
         end
 
         it 'updates the requested message' do

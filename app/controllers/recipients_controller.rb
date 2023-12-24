@@ -23,7 +23,7 @@ class RecipientsController < ApplicationController
 
   # POST /recipients or /recipients.json
   def create
-    @recipient = Recipient.new(recipient_params.merge(status: Recipient.statuses[:unverified]))
+    @recipient = Recipient.new(recipient_params.merge(status: :unverified))
 
     respond_to do |format|
       if @recipient.save
