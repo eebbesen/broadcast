@@ -18,4 +18,11 @@ class Message < ApplicationRecord
   def list_recipients
     recipient_lists.map(&:recipients).flatten
   end
+
+  def validate_sendable
+    return true unless list_recipients.count < 1
+
+    errors.add(:recipients, type: :invalid, message: 'No recipients associated with message')
+    false
+  end
 end

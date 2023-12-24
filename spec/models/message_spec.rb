@@ -26,4 +26,34 @@ RSpec.describe Message do
       expected_recipients.each { |er| expect(lrs.pluck(:phone)).to include(er.phone) }
     end
   end
+
+  describe 'validate_sendable' do
+    it 'is valid with recipients' do
+      message = create(:message)
+      expect(message).to be_valid
+      expect(message.list_recipients.count).to be(2)
+
+      expect(message.validate_sendable).to be_truthy
+      expect(message.errors).to be_empty
+    end
+
+    describe 'invalid when no recipients' do
+      let(:message) { described_class.new(content: 'No recipient lists', user: create(:user), status: :unsent) }
+
+      it 'because no associated recipient lists' do
+        expect(message).to be_valid
+
+        expect(message.validate_sendable).not_to be_truthy
+        expect(message.errors.full_messages.first).to include('No recipients associated with message')
+      end
+
+      it 'because associated recipient lists have no recipients' do
+        message.recipient_lists = [create(:recipient_list, recipients: [])]
+        expect(message).to be_valid
+
+        expect(message.validate_sendable).not_to be_truthy
+        expect(message.errors.full_messages.first).to include('No recipients associated with message')
+      end
+    end
+  end
 end

@@ -5,33 +5,6 @@ require 'rails_helper'
 RSpec.describe 'MessageService' do
   let(:message_service) { MessageService.new }
 
-  describe 'validate_sendable' do
-    describe 'raise MessageNotSendableError when no recipients' do
-      let(:message) { Message.new(content: 'No recipient lists', user: create(:user), status: :unsent) }
-
-      it 'because no associated recipient lists' do
-        expect(message).to be_valid
-
-        expect { MessageService.validate_sendable(message) }
-          .to raise_error(MessageNotSendableError, 'No recipients associated with message')
-      end
-
-      it 'because associated recipient lists have no recipients' do
-        message.recipient_lists = [create(:recipient_list, recipients: [])]
-        expect(message).to be_valid
-
-        expect { MessageService.validate_sendable(message) }
-          .to raise_error(MessageNotSendableError, 'No recipients associated with message')
-      end
-    end
-
-    it 'raises validation error from model' do
-      message = Message.new(content: 'No recipient lists', user: create(:user), status: :unsent)
-      expect { MessageService.validate_sendable(message) }
-        .to raise_error(MessageNotSendableError, 'No recipients associated with message')
-    end
-  end
-
   describe 'send_message' do
     it 'fails when invalid Twilio SID' do
       client = message_service
@@ -79,8 +52,8 @@ RSpec.describe 'MessageService' do
     it 'fails when no recipients' do
       message = Message.new(content: 'No recipient lists', user: create(:user), status: :unsent)
 
-      expect { message_service.send_message(message) }
-        .to raise_error(MessageNotSendableError, 'No recipients associated with message')
+      expect(message_service.send_message(message)).not_to be_truthy
+      expect(message.errors.full_messages.first).to include('No recipients associated with message')
     end
 
     it 'logs succeess when recipients are successful' do

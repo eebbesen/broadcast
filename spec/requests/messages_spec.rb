@@ -62,6 +62,19 @@ RSpec.describe '/messages' do
       end
     end
 
+    describe 'POST /send' do
+      it 'does not send the Message' do
+        message = create(:message)
+
+        expect do
+          post send_message_url(message)
+          expect(response).to have_http_status(:found)
+          expect(response).not_to be_successful
+          expect(message.status).to eq(Message.statuses[:scheduled])
+        end.not_to change(MessageRecipient, :count)
+      end
+    end
+
     describe 'PATCH /update' do
       context 'with valid parameters' do
         let(:new_attributes) do
@@ -120,6 +133,36 @@ RSpec.describe '/messages' do
       it 'renders a successful response' do
         get edit_message_url(message)
         expect(response).to be_successful
+      end
+    end
+
+    describe 'POST /send' do
+      describe 'with valid message' do
+        it 'sends the Message' do
+          allow_any_instance_of(TwilioClient).to receive(:send_single) { # rubocop:disable RSpec/AnyInstance
+                                                   Helper.fake_twilio_send(:queued, Helper.fake_sid)
+                                                 }
+          message = create(:message)
+
+          expect do
+            post send_message_url(message)
+            message.reload
+            expect(message.status).to eq(Message.statuses[:sent])
+          end.to change(MessageRecipient, :count).by(message.list_recipients.count)
+        end
+      end
+
+      describe 'with message that cannot be sent' do
+        it 'does not send the Message without recipients' do
+          message = create(:message, recipient_lists: [])
+
+          expect do
+            post send_message_url(message)
+            expect(response).to have_http_status(:unprocessable_entity)
+            message.reload
+            expect(message.status).to eq(Message.statuses[:scheduled])
+          end.not_to change(MessageRecipient, :count)
+        end
       end
     end
 

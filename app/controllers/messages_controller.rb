@@ -22,6 +22,7 @@ class MessagesController < ApplicationController
   def edit; end
 
   # POST /messages/1/send
+  # just naming this 'send' appears to conflict with existing method
   def send_message
     @message = Message.find(params[:id])
     respond_to do |format|
