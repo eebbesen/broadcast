@@ -22,12 +22,29 @@ RSpec.describe '/recipient_lists' do
         get recipient_lists_url
         expect(response).to be_successful
       end
+
+      it 'only gets lists for user' do
+        included = RecipientList.where(user:)
+        other = create(:user_with_artifacts)
+        excluded = RecipientList.where(user: other)
+
+        get recipient_lists_url
+
+        included.each { |rl| expect(response.body).to include(rl.name) }
+        excluded.each { |rl| expect(response.body).not_to include(rl.name) }
+      end
     end
 
     describe 'GET /show' do
       it 'renders a successful response' do
         get recipient_list_url(recipient_list)
         expect(response).to be_successful
+      end
+
+      it "does not render others' lists" do
+        orl = create(:recipient_list, user: create(:user))
+        get recipient_list_url(orl)
+        expect(response).to have_http_status(:not_found)
       end
     end
 
@@ -42,6 +59,12 @@ RSpec.describe '/recipient_lists' do
       it 'renders a successful response' do
         get edit_recipient_list_url(recipient_list)
         expect(response).to be_successful
+      end
+
+      it "does not render others' lists" do
+        orl = create(:recipient_list, user: create(:user))
+        get edit_recipient_list_url(orl)
+        expect(response).to have_http_status(:not_found)
       end
     end
 
@@ -83,6 +106,17 @@ RSpec.describe '/recipient_lists' do
           patch recipient_list_url(recipient_list), params: { recipient_list: new_attributes }
           recipient_list.reload
           expect(recipient_list.name).to eq('Park Events updated')
+        end
+
+        it "doesn't update another's recipient_list" do
+          orl = create(:recipient_list, user: create(:user))
+          original_name = orl.name
+
+          patch recipient_list_url(orl), params: { recipient_list: new_attributes }
+
+          expect(response).to have_http_status(:not_found)
+          orl.reload
+          expect(orl.name).to eq(original_name)
         end
 
         it 'redirects to the recipient_list' do

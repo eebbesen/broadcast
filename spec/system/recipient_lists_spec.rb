@@ -4,12 +4,12 @@
 require 'rails_helper'
 
 RSpec.describe 'RecipientLists' do
-  before do
-    sign_in(create(:user))
-  end
+  let(:user) { create(:user) }
+
+  before { sign_in(user) }
 
   describe 'from recipient list index' do
-    let!(:recipient_list) { create(:recipient_list) }
+    let!(:recipient_list) { create(:recipient_list, user:) }
 
     before do
       visit(recipient_lists_path)
@@ -41,7 +41,7 @@ RSpec.describe 'RecipientLists' do
   end
 
   describe 'edit recipient list' do
-    let!(:recipient_list) { create(:recipient_list) }
+    let!(:recipient_list) { create(:recipient_list, user:) }
 
     before { visit edit_recipient_list_path(recipient_list) }
 
