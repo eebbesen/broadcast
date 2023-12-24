@@ -6,20 +6,25 @@ class MessageService
     @twilio_client = client
   end
 
-  def send_message(message) # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
-    message.list_recipients.each do |r|
-      mr = MessageRecipient.new(message:, recipient: r)
-      begin
-        res = @twilio_client.send_single(r.phone, message.content)
-        mr.status = res.status
-        mr.sid = res.sid
-      rescue Twilio::REST::RestError => e
-        mr.error = e.message
-        mr.status = MessageRecipient.statuses[:failed]
-        Rails.logger.error("Error sending message #{message.id} to #{r}: #{e.message}")
-      ensure
-        mr.save!
-      end
+  def send_message(message)
+    message.list_recipients.each { |r| send_to_recipient(message, r) }
+    message.status = Message.statuses[:sent]
+    message.sent_at = DateTime.now
+    message.save!
+  end
+
+  def send_to_recipient(message, recipient) # rubocop:disable Metrics/MethodLength
+    mr = MessageRecipient.new(message:, recipient:)
+    begin
+      result = @twilio_client.send_single(recipient.phone, message.content)
+      mr.status = result.status
+      mr.sid = result.sid
+    rescue Twilio::REST::RestError => e
+      mr.error = e.message
+      mr.status = MessageRecipient.statuses[:failed]
+      Rails.logger.error("Error sending message #{message.id} to #{recipient}: #{e.message}")
+    ensure
+      mr.save!
     end
   end
 

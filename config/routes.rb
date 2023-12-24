@@ -4,7 +4,9 @@ Rails.application.routes.draw do
   resources :recipient_lists
   resources :message_recipients
   resources :recipients
+
   resources :messages
+  post 'messages/:id/send_message', to: 'messages#send_message', as: 'messages_send'
   devise_for :users
   devise_for :admins
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html

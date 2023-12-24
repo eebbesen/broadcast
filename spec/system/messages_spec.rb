@@ -2,10 +2,28 @@
 
 require 'rails_helper'
 
+TwilioSendReturn = Struct.new(:status, :sid)
+
 RSpec.describe 'RecipientLists' do
   let(:user) { create(:user_with_artifacts) }
 
   before { sign_in(user) }
+
+  describe 'message sending' do
+    it 'sends message' do
+      allow_any_instance_of(TwilioClient).to receive(:send_single) { # rubocop:disable RSpec/AnyInstance
+                                               TwilioSendReturn.new(:queued, Helper.new.fake_sid)
+                                             }
+      message = create(:message, status: Message.statuses[:unsent], sent_at: nil, user:)
+      expect do
+        visit(messages_path)
+        click_link(message.content)
+
+        click_button('Send')
+        # expect(page).to have_current_path(message_path(user.messages.first))
+      end.to change(Message.where(status: Message.statuses[:sent]), :count).by(1)
+    end
+  end
 
   describe 'message creation' do
     before do

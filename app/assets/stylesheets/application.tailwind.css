@@ -15,12 +15,20 @@ textarea, input, .py-4>input {
     @apply col-start-9 ml-5 flex justify-end
   }
 
+  .green-button {
+    @apply rounded p-2.5 text-center bg-green-300 hover:bg-green-400 col-span-1 w-full
+  }
+
   .nine-grid {
     @apply grid md:grid-cols-9 sm:grid-cols-4
   }
 
   .red-button {
     @apply rounded p-2.5 text-center bg-red-300 hover:bg-red-400 col-span-1 w-full
+  }
+
+  .send-form {
+    @apply col-start-8 mr-5 flex justify-start
   }
 
   #recipient-lists>label {
