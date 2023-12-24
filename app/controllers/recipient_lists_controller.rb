@@ -7,7 +7,7 @@ class RecipientListsController < ApplicationController
 
   # GET /recipient_lists or /recipient_lists.json
   def index
-    @recipient_lists = RecipientList.all
+    @recipient_lists = RecipientList.where(user: current_user)
   end
 
   # GET /recipient_lists/1 or /recipient_lists/1.json
@@ -67,7 +67,9 @@ class RecipientListsController < ApplicationController
 
   # Use callbacks to share common setup or constraints between actions.
   def set_recipient_list
-    @recipient_list = RecipientList.find(params[:id])
+    return unless current_user
+
+    @recipient_list = RecipientList.where(user: current_user).find(params[:id])
   end
 
   # Only allow a list of trusted parameters through.
