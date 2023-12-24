@@ -113,12 +113,43 @@ RSpec.describe '/messages' do
         get messages_url
         expect(response).to be_successful
       end
+
+      it 'only lists records owned by current user' do
+        user = create(:user_with_artifacts)
+        sign_in(user)
+        included = Message.where(user:).pluck(:content)
+        excluded = Message.where.not(user:).pluck(:content)
+
+        get messages_url
+
+        expect(response).to be_successful
+        included.each { |c| expect(response.body).to include(c) }
+        excluded.each { |c| expect(response.body).not_to include(c) }
+      end
     end
 
     describe 'GET /show' do
       it 'renders a successful response' do
+        sign_in(message.user)
         get message_url(message)
         expect(response).to be_successful
+      end
+
+      it 'only shows records owned by current user' do
+        user = create(:user_with_artifacts)
+        sign_in(user)
+        included = Message.where(user:)
+        excluded = Message.where.not(user:)
+
+        included.each do |m|
+          get message_url(m)
+          expect(response.body).to include(m.content)
+        end
+
+        excluded.each do |m|
+          get message_url(m)
+          expect(response).not_to be_successful
+        end
       end
     end
 
@@ -134,6 +165,23 @@ RSpec.describe '/messages' do
         get edit_message_url(message)
         expect(response).to be_successful
       end
+
+      it 'only edits records owned by current user' do
+        user = create(:user_with_artifacts)
+        sign_in(user)
+        included = Message.where(user:)
+        excluded = Message.where.not(user:)
+
+        included.each do |m|
+          get edit_message_url(m)
+          expect(response.body).to include(m.content)
+        end
+
+        excluded.each do |m|
+          get edit_message_url(m)
+          expect(response).not_to be_successful
+        end
+      end
     end
 
     describe 'POST /send' do
@@ -142,13 +190,29 @@ RSpec.describe '/messages' do
           allow_any_instance_of(TwilioClient).to receive(:send_single) { # rubocop:disable RSpec/AnyInstance
                                                    Helper.fake_twilio_send(:queued, Helper.fake_sid)
                                                  }
-          message = create(:message)
+          message = create(:message, user:)
 
           expect do
             post send_message_url(message)
             message.reload
             expect(message.status).to eq(Message.statuses[:sent])
           end.to change(MessageRecipient, :count).by(message.list_recipients.count)
+        end
+
+        it 'does not send the Message if another user owns it' do
+          allow_any_instance_of(TwilioClient).to receive(:send_single) { # rubocop:disable RSpec/AnyInstance
+                                                   Helper.fake_twilio_send(:queued, Helper.fake_sid)
+                                                 }
+          message = create(:message)
+          user = create(:user)
+          sign_in(user)
+
+          expect do
+            post send_message_url(message)
+            expect(response).to have_http_status(:unprocessable_entity)
+            message.reload
+            expect(message.status).to eq(Message.statuses[:scheduled])
+          end.not_to change(MessageRecipient, :count)
         end
       end
 
@@ -216,6 +280,19 @@ RSpec.describe '/messages' do
           expect(message.content).to eq(new_attributes[:content])
           expect(response).to redirect_to(message_url(message))
         end
+
+        it "does not update others' message" do
+          user = create(:user)
+          sign_in(user)
+          old_content = message.content
+
+          patch message_url(message), params: { message: new_attributes }
+
+          message.reload
+          expect(message.content).not_to eq(new_attributes[:content])
+          expect(message.content).to eq(old_content)
+          expect(response).to have_http_status(:not_found)
+        end
       end
 
       context 'with invalid parameters' do
@@ -234,6 +311,16 @@ RSpec.describe '/messages' do
           delete message_url(message)
         end.to change(Message, :count).by(-1)
         expect(response).to redirect_to(messages_url)
+      end
+
+      it 'does not destroy message owned by another' do
+        user = create(:user)
+        sign_in(user)
+
+        expect do
+          delete message_url(message)
+        end.not_to change(Message, :count)
+        expect(response).to have_http_status(:not_found)
       end
     end
   end

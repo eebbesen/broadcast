@@ -7,7 +7,9 @@ class MessagesController < ApplicationController
 
   # GET /messages or /messages.json
   def index
-    @messages = Message.all
+    return unless current_user
+
+    @messages = Message.where(user: current_user)
   end
 
   # GET /messages/1 or /messages/1.json
@@ -23,10 +25,17 @@ class MessagesController < ApplicationController
 
   # POST /messages/1/send
   # just naming this 'send' appears to conflict with existing method
-  def send_message
-    @message = Message.find(params[:id])
+  # todo: work on integrating this into the before action -- need to capture and handle
+  #  ActiveRecord::RecordNotFound exception like built-ins methods do
+  def send_message # rubocop:disable Metrics/AbcSize
+    begin
+      set_message
+    rescue ActiveRecord::RecordNotFound
+      Rails.logger.info("User #{current_user.id} attempted to send message #{params[:id]}")
+    end
+
     respond_to do |format|
-      if MessageService.new.send_message(@message)
+      if @message && MessageService.new.send_message(@message)
         format.html { redirect_to message_url(@message), notice: 'Message sent.' }
         format.json { render :show, status: :created, location: @message }
       else
@@ -78,7 +87,9 @@ class MessagesController < ApplicationController
 
   # Use callbacks to share common setup or constraints between actions.
   def set_message
-    @message = Message.find(params[:id])
+    return unless current_user
+
+    @message = Message.where(user: current_user).find(params[:id])
   end
 
   # Only allow a list of trusted parameters through.
