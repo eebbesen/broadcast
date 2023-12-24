@@ -13,7 +13,6 @@ unless %w[test development].include?(Rails.env)
 end
 ActiveRecord::Base.transaction do
   # create a user in the console
-  # User.create!(email: 'you@you.you', password: 'S3kr!t_')
   User.create!(email: 'you@you.you', password: 'retek01!')
 
   # recipients
@@ -40,13 +39,13 @@ ActiveRecord::Base.transaction do
 
   Recipient.where(status: :verified).find_each do |r|
     MessageRecipient.create!(message: Message.first, recipient: r,
-                             sid: Helper.new.fake_sid, status: MessageRecipient.statuses[:success])
+                             sid: Helper.fake_sid, status: MessageRecipient.statuses[:queued])
   end
   MessageRecipient.create!(message: Message.first, recipient: create(:recipient),
-                           sid: Helper.new.fake_sid, status: MessageRecipient.statuses[:failure],
+                           sid: Helper.fake_sid, status: MessageRecipient.statuses[:failed],
                            error: 'Not a mobile number')
   MessageRecipient.create!(message: Message.last, recipient: create(:recipient),
-                           sid: Helper.new.fake_sid, status: MessageRecipient.statuses[:pending])
+                           sid: Helper.fake_sid, status: MessageRecipient.statuses[:pending])
 
   m1.recipient_lists << rl1
   m2.recipient_lists << rl2

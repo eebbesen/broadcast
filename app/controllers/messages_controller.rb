@@ -21,6 +21,20 @@ class MessagesController < ApplicationController
   # GET /messages/1/edit
   def edit; end
 
+  # POST /messages/1/send
+  def send_message
+    @message = Message.find(params[:id])
+    respond_to do |format|
+      if MessageService.new.send_message(@message)
+        format.html { redirect_to message_url(@message), notice: 'Message sent.' }
+        format.json { render :show, status: :created, location: @message }
+      else
+        format.html { render :new, status: :unprocessable_entity }
+        format.json { render json: @message.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
   # POST /messages or /messages.json
   def create
     @message = Message.new(message_params.merge(status: Message.statuses[:unsent], user: current_user))

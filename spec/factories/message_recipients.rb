@@ -5,7 +5,7 @@ FactoryBot.define do
     message
     recipient
     status { MessageRecipient.statuses[:sent] }
-    sid { Helper.new.fake_sid }
+    sid { Helper.fake_sid }
     last_status_check { DateTime.now - 3 }
 
     factory :queued_recipient do

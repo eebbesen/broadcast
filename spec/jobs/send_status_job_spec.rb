@@ -2,11 +2,9 @@
 
 require 'rails_helper'
 
-TwilioReturn = Struct.new(:status, :error_message)
-
 RSpec.describe SendStatusJob do
   it('updates status with sent') do
-    sent_ret = TwilioReturn.new('sent', nil)
+    sent_ret = Helper.fake_twilio_status('sent', nil)
 
     allow_any_instance_of(TwilioClient).to receive(:get_status) { sent_ret } # rubocop:disable RSpec/AnyInstance
 
