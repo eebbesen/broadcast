@@ -11,6 +11,7 @@ class MessageService
   end
 
   def send_message(message)
+    MessageService.validate_sendable(message)
     error_codes = message.list_recipients.map { |r| send_to_recipient(message, r) }
 
     if error_codes.intersect?(FATAL_ERRORS)
@@ -40,6 +41,9 @@ class MessageService
     end
   end
 
+  # Call Twilio for recipient status per message
+  # Typically this will be used to get the updated status
+  #  for records with queued status
   def update_recipient_status(message_recipient)
     res = @twilio_client.get_status(message_recipient.sid)
 
@@ -47,5 +51,10 @@ class MessageService
     message_recipient.error = res.error_message
     message_recipient.last_status_check = DateTime.now
     message_recipient.save!
+  end
+
+  def self.validate_sendable(message)
+    raise(MessageNotSendableError, message.errors.first.full_message) unless message.valid?
+    raise(MessageNotSendableError, 'No recipients associated with message') if message.list_recipients.count < 1
   end
 end
