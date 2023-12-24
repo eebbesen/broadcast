@@ -2,7 +2,7 @@
 
 # SMS Message
 class Message < ApplicationRecord
-  enum :status, { unsent: 'unsent', scheduled: 'scheduled', sent: 'sent' }
+  enum :status, { unsent: 'unsent', scheduled: 'scheduled', sent: 'sent', failed: 'failed' }
 
   belongs_to :user
   has_many :message_recipients, dependent: :destroy

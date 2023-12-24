@@ -15,7 +15,7 @@
 </div>
 
 <div class="mt-8">
-<% if @message.status == Message.statuses[:sent]%>
+<% if @message.status == Message.statuses[:sent] %>
   <p class="font-bold py-4">Recipients</p>
   <%= render partial: 'message_recipients/message_recipients_list', locals: { message_recipients: @message.message_recipients } %>
 <% else %>

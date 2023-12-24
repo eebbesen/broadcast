@@ -8,7 +8,7 @@ RSpec.describe '/recipients' do
   # adjust the attributes here as well.
   let(:valid_attributes) { { phone: '6515551212' } }
   let(:invalid_attributes) { { phone: nil } }
-  let!(:recipient) { Recipient.create!(valid_attributes.merge(status: Recipient.statuses[:unverified])) }
+  let!(:recipient) { Recipient.create!(valid_attributes.merge(status: :unverified)) }
 
   describe 'not signed in' do
     describe 'GET /index' do
@@ -54,7 +54,7 @@ RSpec.describe '/recipients' do
     end
 
     describe 'PATCH /update' do
-      let(:new_attributes) { { status: Recipient.statuses[:blocked] } }
+      let(:new_attributes) { { status: :blocked } }
 
       it 'does not update the requested recipient' do
         patch recipient_url(recipient), params: { recipient: new_attributes }
@@ -134,7 +134,7 @@ RSpec.describe '/recipients' do
 
     describe 'PATCH /update' do
       context 'with valid parameters' do
-        let(:new_attributes) { { status: Recipient.statuses[:blocked] } }
+        let(:new_attributes) { { status: :blocked } }
 
         it 'updates the requested recipient' do
           patch recipient_url(recipient), params: { recipient: new_attributes }

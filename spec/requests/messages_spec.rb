@@ -8,7 +8,7 @@ RSpec.describe '/messages' do
   # Message. As you add validations to Message, be sure to
   # adjust the attributes here as well.
   let(:valid_attributes) do
-    { content: 'Park activities this month', status: Message.statuses[:scheduled], user_id: user.id }
+    { content: 'Park activities this month', status: :scheduled, user_id: user.id }
   end
 
   let(:valid_create_attributes) { { content: 'Park activities this month' } }
@@ -65,7 +65,7 @@ RSpec.describe '/messages' do
     describe 'PATCH /update' do
       context 'with valid parameters' do
         let(:new_attributes) do
-          { content: 'Updated content', status: Message.statuses[:scheduled], user_id: user.id }
+          { content: 'Updated content', status: :scheduled, user_id: user.id }
         end
 
         it 'does not update the requested message' do
@@ -164,7 +164,7 @@ RSpec.describe '/messages' do
     describe 'PATCH /update' do
       context 'with valid parameters' do
         let(:new_attributes) do
-          { content: 'Updated content', status: Message.statuses[:scheduled], user_id: user.id }
+          { content: 'Updated content', status: :scheduled, user_id: user.id }
         end
 
         it 'updates the requested message' do

@@ -12,14 +12,14 @@ RSpec.describe 'RecipientLists' do
       allow_any_instance_of(TwilioClient).to receive(:send_single) { # rubocop:disable RSpec/AnyInstance
                                                Helper.fake_twilio_send(:queued, Helper.fake_sid)
                                              }
-      message = create(:message, status: Message.statuses[:unsent], sent_at: nil, user:)
+      message = create(:message, status: :unsent, sent_at: nil, user:)
       expect do
         visit(messages_path)
         click_link(message.content)
 
         click_button('Send')
         expect(page).to have_current_path(message_path(message))
-      end.to change(Message.where(status: Message.statuses[:sent]), :count).by(1)
+      end.to change(Message.where(status: :sent), :count).by(1)
     end
   end
 

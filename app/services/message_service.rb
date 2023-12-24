@@ -2,29 +2,41 @@
 
 # Service to connect application to SMS sending
 class MessageService
+  # Fatal errors indicate auth or other account-related issue
+  #  that will prevent sending to every recipient
+  FATAL_ERRORS = [20003, 20404].freeze # rubocop:disable Style/NumericLiterals
+
   def initialize(client = TwilioClient.new)
     @twilio_client = client
   end
 
   def send_message(message)
-    message.list_recipients.each { |r| send_to_recipient(message, r) }
-    message.status = Message.statuses[:sent]
-    message.sent_at = DateTime.now
+    error_codes = message.list_recipients.map { |r| send_to_recipient(message, r) }
+
+    if error_codes.intersect?(FATAL_ERRORS)
+      message.status = :failed
+    else
+      message.status = :sent
+      message.sent_at = DateTime.now
+    end
     message.save!
   end
 
   def send_to_recipient(message, recipient) # rubocop:disable Metrics/MethodLength
+    error_code = nil
     mr = MessageRecipient.new(message:, recipient:)
     begin
       result = @twilio_client.send_single(recipient.phone, message.content)
       mr.status = result.status
       mr.sid = result.sid
     rescue Twilio::REST::RestError => e
+      error_code = e.code
       mr.error = e.message
-      mr.status = MessageRecipient.statuses[:failed]
+      mr.status = :failed
       Rails.logger.error("Error sending message #{message.id} to #{recipient}: #{e.message}")
     ensure
       mr.save!
+      return error_code # rubocop:disable Lint/EnsureReturn
     end
   end
 

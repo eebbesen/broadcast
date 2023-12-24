@@ -37,7 +37,7 @@ class MessagesController < ApplicationController
 
   # POST /messages or /messages.json
   def create
-    @message = Message.new(message_params.merge(status: Message.statuses[:unsent], user: current_user))
+    @message = Message.new(message_params.merge(status: :unsent, user: current_user))
 
     respond_to do |format|
       if @message.save
