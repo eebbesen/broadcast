@@ -46,4 +46,16 @@ RSpec.describe 'TwilioClient' do
       end
     end
   end
+
+  describe 'get_status' do
+    let(:test_sid) { 'SM9aa0a32fdda5e9b0007a4f6504d706d8' }
+
+    # Need to mock since we can't record a value of this
+    it 'retreives status from Twilio' do
+      VCR.use_cassette('twilio_get_status_success') do
+        ret = twilio_client.get_status(test_sid)
+        expect(ret.status).to eq('sent')
+      end
+    end
+  end
 end
