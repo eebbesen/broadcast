@@ -61,7 +61,7 @@ RSpec.describe 'RecipientLists' do
     end
 
     describe 'message editing' do
-      let!(:message) { create(:message, user: user) }
+      let!(:message) { create(:message, user:) }
 
       before do
         sign_in(user)

@@ -26,7 +26,7 @@ RSpec.describe 'messages/show' do
     end
   end
 
-  it 'renders attributes for failed message' do # rubocop:disable RSpec/MultipleExpectations
+  it 'renders attributes for failed message' do
     message = create(:failed_message)
     assign(:message, message)
 
@@ -38,11 +38,9 @@ RSpec.describe 'messages/show' do
       message.content,
       message.status.capitalize
     ].each { |a| expect(rendered).to include(a) }
-    %w[Phone Status Error].each { |h| expect(rendered).to include(h) }
+    %w[Phone Status Error Send Edit].each { |h| expect(rendered).to include(h) }
     message.message_recipients.each do |mr|
       [mr.recipient.phone, mr.status, mr.error].each { |a| expect(rendered).to include(a) }
-      expect(rendered).to include('Send')
-      expect(rendered).to include('Edit')
       expect(rendered).not_to include('Delete')
     end
   end
@@ -60,12 +58,9 @@ RSpec.describe 'messages/show' do
       message.status.capitalize,
       message.message_recipients.count.to_s
     ].each { |a| expect(rendered).to include(a) }
-    %w[Phone Status].each { |h| expect(rendered).to include(h) }
+    %w[Phone Status Send Edit Delete].each { |h| expect(rendered).to include(h) }
     message.message_recipients.each do |mr|
       [mr.recipient.phone, mr.status].each { |a| expect(rendered).to include(a) }
-      expect(rendered).to include('Send')
-      expect(rendered).to include('Delete')
-      expect(rendered).to include('Edit')
     end
   end
 end
