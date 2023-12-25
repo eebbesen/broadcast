@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 RSpec.describe 'messages/show' do
-  it 'renders attributes for sent message' do
+  it 'renders attributes for sent message' do # rubocop:disable RSpec/MultipleExpectations
     message = create(:sent_message)
     assign(:message, message)
 
@@ -22,10 +22,11 @@ RSpec.describe 'messages/show' do
       [mr.recipient.phone, mr.status].each { |a| expect(rendered).to include(a) }
       expect(rendered).not_to include('Send')
       expect(rendered).not_to include('Delete')
+      expect(rendered).not_to include('Edit')
     end
   end
 
-  it 'renders attributes for failed message' do
+  it 'renders attributes for failed message' do # rubocop:disable RSpec/MultipleExpectations
     message = create(:failed_message)
     assign(:message, message)
 
@@ -41,6 +42,7 @@ RSpec.describe 'messages/show' do
     message.message_recipients.each do |mr|
       [mr.recipient.phone, mr.status, mr.error].each { |a| expect(rendered).to include(a) }
       expect(rendered).to include('Send')
+      expect(rendered).to include('Edit')
       expect(rendered).not_to include('Delete')
     end
   end
@@ -63,6 +65,7 @@ RSpec.describe 'messages/show' do
       [mr.recipient.phone, mr.status].each { |a| expect(rendered).to include(a) }
       expect(rendered).to include('Send')
       expect(rendered).to include('Delete')
+      expect(rendered).to include('Edit')
     end
   end
 end
