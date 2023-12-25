@@ -21,7 +21,7 @@ TWILIO_PHONE
   * replace `pg` references in the Gemfile
   * update `config/database.yml`
 * Have a Twilio account (if you will be sending messages to Twiliio)
-  * Twilio accounts allow test accounts, which will allow you to interact with Twilio services but not actually send messages _or_ charge you per send.
+  * Twilio accounts allow test accounts, which will allow you to interact with Twilio services but not actually send messages _or_ charge you per send
 
 ## Setup
 ```bash
@@ -39,6 +39,17 @@ Create users via http://localhost:3000/users/sign_in or via the Rails console, t
 bin/rails db:seed:replant
 ```
 
+Run in watch mode with assets
+```bash
+bin/dev
+```
+or compile manually and use `rails server`
+```bash
+bin/rake assets:precompile
+bin/rails s
+```
+
+
 ## Tests
 Both system and unit tests are present
 ```bash
@@ -54,7 +65,7 @@ TWILIO_TOKEN ||= ENV['TWILIO_TEST_TOKEN']
 TWILIO_PHONE ||= '+15005550006'
 ```
 
-See https://www.twilio.com/docs/iam/test-credentials for details. The `TWILIO_PHONE` when using test credentials needs to be one of a few specific numbers, which is why the value is hard-coded above
+See https://www.twilio.com/docs/iam/test-credentials for details. The `TWILIO_PHONE` when using test credentials needs to be one of a few specific numbers, which is why the value is hard-coded above.
 
 ### System Tests
 #### viewing rendered pages during system tests
@@ -76,23 +87,18 @@ bundle exec bundler-audit --update
 bundle exec reek
 ```
 
-
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+# Production Deployment
+## Render
+* Create web application
+* Create database instance
+* Add secrets to web app
+  * SECRET_KEY_BASE
+  * BROADCAST_DATABASE_NAME
+  * BROADCAST_DATABASE_HOST
+  * BROADCAST_DATABASE_PASSWORD
+  * BROADCAST_DATABASE_USERNAME
+  * TWILIO_SID
+  * TWILIO_TOKEN
+  * TWILIO_PHONE
+* Connect to the database and run migrations
+  * If on the free tier you'll have to do this from your local box
