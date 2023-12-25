@@ -37,6 +37,7 @@ RSpec.describe 'RecipientLists' do
           click_button('Save')
 
           expect(page).to have_current_path(message_path(Message.last))
+          expect(page).to have_content('Message was successfully created.')
         end.to change(Message, :count).by(1)
       end
 
