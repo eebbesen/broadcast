@@ -17,7 +17,7 @@ RSpec.describe 'messages/show' do
       ui_date(message.sent_at),
       message.message_recipients.count.to_s
     ].each { |a| expect(rendered).to include(a) }
-    %w[Phone Status Error].each { |h| expect(rendered).to include(h) }
+    ['Phone', 'Status', 'Error', 'Sent At'].each { |h| expect(rendered).to include(h) }
     message.message_recipients.each do |mr|
       [mr.recipient.phone, mr.status].each { |a| expect(rendered).to include(a) }
       expect(rendered).not_to include('Send')

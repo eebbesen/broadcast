@@ -1,6 +1,8 @@
 <div>
   <div id="header-row" class="grid grid-cols-6 bg-slate-300 rounded-t p-4">
-    <% %w(Phone Status Error).each do |h| %>
+    <% extra = show_content ? 'Content' : ' Phone ' %>
+    <% sent_at = show_content ? 'Sent At' : ''%>
+    <% [extra, 'Status', 'Error', sent_at].each do |h| %>
       <div class="header-item font-bold">
         <%= h %>
       </div>
@@ -13,7 +15,7 @@
     %>
       <div id="<%= dom_id mr %>" class="grid grid-cols-6 border border-slate-300 p-4 <%= st %>">
         <div>
-          <%= mr.recipient.phone %>
+          <%= show_content ? mr.message.content : mr.recipient.phone %>
         </div>
         <div>
           <%= mr.status %>
@@ -21,6 +23,11 @@
         <div>
           <%= mr.error %>
         </div>
+        <% if show_content %>
+          <div>
+            <%= ui_date(mr.created_at) %>
+          </div>
+        <% end%>
       </div>
     <% end %>
   </div>

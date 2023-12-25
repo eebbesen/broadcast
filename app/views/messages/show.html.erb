@@ -23,7 +23,7 @@
 <div class="mt-8">
 <% if [Message.statuses[:sent], Message.statuses[:failed]].include?(@message.status) %>
   <p class="font-bold py-4">Recipients</p>
-  <%= render partial: 'message_recipients/message_recipients_list', locals: { message_recipients: @message.message_recipients } %>
+  <%= render partial: 'message_recipients/message_recipients_list', locals: { message_recipients: @message.message_recipients, show_content: false } %>
 <% else %>
   <p class="font-bold py-4">Estimated Recipients</p>
   <%= render partial: 'recipient_lists/combined_recipient_lists', locals: { recipient_lists: @message.recipient_lists.to_a } %>
