@@ -79,6 +79,7 @@ test:
 #
 production:
   <<: *default
-  database: broadcast_production
-  username: broadcast
+  database: <%= ENV["BROADCAST_DATABASE_NAME"] %>
+  username: <%= ENV["BROADCAST_DATABASE_USERNAME"] %>
   password: <%= ENV["BROADCAST_DATABASE_PASSWORD"] %>
+  host: <%= ENV["BROADCAST_DATABASE_HOST"] %>
