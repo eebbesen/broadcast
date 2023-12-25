@@ -19,15 +19,15 @@
   <div class="py-4 font-bold">Recipient Lists</div>
   <div id="recipient-lists">
     <% current_user.recipient_lists.each do |rl| %>
-      <input id="user_recipient_list_ids_<%= rl.id %>" name="message[recipient_list_ids][]" type="checkbox" value="<%= rl.id %>" class="" />
+      <input id="user_recipient_list_ids_<%= rl.id %>" name="message[recipient_list_ids][]" type="checkbox" value="<%= rl.id %>" <%= message.recipient_lists.pluck(:id).include?(rl.id) ? 'checked' : '' %> />
       <label for="user_recipient_list_ids_<%= rl.id %>" class="align-middle"><%= rl.name %></label>
     <% end %>
     <input name="message[recipient_list_ids][]" type="hidden" value="" />
   </div>
 
   <div class="mt-8 nine-grid">
-    <%= form.submit 'Save', class: 'blue-button col-start-1 mr-5' %>
     <% path = request.path.end_with?('edit') ? message : messages_path %>
-    <%= link_to 'Back', path, class: 'blue-button col-start-2 mr-5' %>
+    <%= link_to 'Back', path, class: 'blue-button col-start-1 mr-5' %>
+    <%= form.submit 'Save', class: 'blue-button col-start-2 ml-5' %>
   </div>
 <% end %>
