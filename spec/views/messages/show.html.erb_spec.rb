@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 RSpec.describe 'messages/show' do
-  it 'renders attributes for sent message' do
+  it 'renders attributes for sent message' do # rubocop:disable RSpec/MultipleExpectations
     message = create(:sent_message)
     assign(:message, message)
 
@@ -17,9 +17,12 @@ RSpec.describe 'messages/show' do
       ui_date(message.sent_at),
       message.message_recipients.count.to_s
     ].each { |a| expect(rendered).to include(a) }
-    %w[Phone Status Error].each { |h| expect(rendered).to include(h) }
+    ['Phone', 'Status', 'Error', 'Sent At'].each { |h| expect(rendered).to include(h) }
     message.message_recipients.each do |mr|
       [mr.recipient.phone, mr.status].each { |a| expect(rendered).to include(a) }
+      expect(rendered).not_to include('Send')
+      expect(rendered).not_to include('Delete')
+      expect(rendered).not_to include('Edit')
     end
   end
 
@@ -35,9 +38,10 @@ RSpec.describe 'messages/show' do
       message.content,
       message.status.capitalize
     ].each { |a| expect(rendered).to include(a) }
-    %w[Phone Status Error].each { |h| expect(rendered).to include(h) }
+    %w[Phone Status Error Send Edit].each { |h| expect(rendered).to include(h) }
     message.message_recipients.each do |mr|
       [mr.recipient.phone, mr.status, mr.error].each { |a| expect(rendered).to include(a) }
+      expect(rendered).not_to include('Delete')
     end
   end
 
@@ -54,7 +58,7 @@ RSpec.describe 'messages/show' do
       message.status.capitalize,
       message.message_recipients.count.to_s
     ].each { |a| expect(rendered).to include(a) }
-    %w[Phone Status].each { |h| expect(rendered).to include(h) }
+    %w[Phone Status Send Edit Delete].each { |h| expect(rendered).to include(h) }
     message.message_recipients.each do |mr|
       [mr.recipient.phone, mr.status].each { |a| expect(rendered).to include(a) }
     end

@@ -61,11 +61,12 @@ RSpec.describe 'RecipientLists' do
     end
 
     describe 'message editing' do
-      let(:message) { user.messages.first }
+      let!(:message) { create(:message, user:) }
 
       before do
+        sign_in(user)
         visit(messages_path)
-        click_link(user.messages.first.content)
+        click_link(message.content)
 
         click_link('Edit')
       end
