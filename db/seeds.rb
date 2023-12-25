@@ -38,13 +38,13 @@ ActiveRecord::Base.transaction do
                        user: User.first, status: :unsent)
 
   Recipient.where(status: :verified).find_each do |r|
-    MessageRecipient.create!(message: Message.first, recipient: r,
+    MessageRecipient.create!(message: m1, recipient: r,
                              sid: Helper.fake_sid, status: :queued)
   end
-  MessageRecipient.create!(message: Message.first, recipient: create(:recipient),
+  MessageRecipient.create!(message: m1, recipient: create(:recipient),
                            sid: Helper.fake_sid, status: :failed,
                            error: 'Not a mobile number')
-  MessageRecipient.create!(message: Message.last, recipient: create(:recipient),
+  MessageRecipient.create!(message: m2, recipient: create(:recipient),
                            sid: Helper.fake_sid, status: :pending)
 
   m1.recipient_lists << rl1

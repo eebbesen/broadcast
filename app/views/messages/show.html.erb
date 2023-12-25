@@ -3,11 +3,10 @@
 <%= render @message %>
 
 <div class="mt-8 nine-grid">
+  <%= link_to 'Back', messages_path, class: 'blue-button col-start-1 mr-5' %>
   <% if [Message.statuses[:scheduled], Message.statuses[:failed], Message.statuses[:unsent]].include?(@message.status) %>
-    <%= link_to 'Edit', edit_message_path(@message), class: 'blue-button col-start-1 mr-5' %>
-  <% end %>
-  <%= link_to 'Back', messages_path, class: 'blue-button col-start-2 ml-5' %>
-  <% if [Message.statuses[:scheduled], Message.statuses[:failed], Message.statuses[:unsent]].include?(@message.status) %>
+    <%= link_to 'Edit', edit_message_path(@message), class: 'blue-button col-start-2 ml-5' %>
+  <% end %>  <% if [Message.statuses[:scheduled], Message.statuses[:failed], Message.statuses[:unsent]].include?(@message.status) %>
     <%= button_to 'Send', send_message_path(@message), method: :post, form_class: 'send-form', class: 'green-button' %>
   <% end %>
   <% if [Message.statuses[:scheduled], Message.statuses[:unsent]].include?(@message.status) %>
