@@ -20,6 +20,8 @@ RSpec.describe 'messages/show' do
     %w[Phone Status Error].each { |h| expect(rendered).to include(h) }
     message.message_recipients.each do |mr|
       [mr.recipient.phone, mr.status].each { |a| expect(rendered).to include(a) }
+      expect(rendered).not_to include('Send')
+      expect(rendered).not_to include('Delete')
     end
   end
 
@@ -38,6 +40,8 @@ RSpec.describe 'messages/show' do
     %w[Phone Status Error].each { |h| expect(rendered).to include(h) }
     message.message_recipients.each do |mr|
       [mr.recipient.phone, mr.status, mr.error].each { |a| expect(rendered).to include(a) }
+      expect(rendered).to include('Send')
+      expect(rendered).not_to include('Delete')
     end
   end
 
@@ -57,6 +61,8 @@ RSpec.describe 'messages/show' do
     %w[Phone Status].each { |h| expect(rendered).to include(h) }
     message.message_recipients.each do |mr|
       [mr.recipient.phone, mr.status].each { |a| expect(rendered).to include(a) }
+      expect(rendered).to include('Send')
+      expect(rendered).to include('Delete')
     end
   end
 end

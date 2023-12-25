@@ -5,8 +5,12 @@
 <div class="mt-8 nine-grid">
   <%= link_to 'Edit', edit_message_path(@message), class: 'blue-button col-start-1 mr-5' %>
   <%= link_to 'Back', messages_path, class: 'blue-button col-start-2 ml-5' %>
-  <%= button_to 'Send', send_message_path(@message), method: :post, form_class: 'send-form', class: 'green-button' %>
-  <%= button_to 'Delete', @message, method: :delete, form_class: 'delete-form', class: 'red-button' %>
+  <% if [Message.statuses[:scheduled], Message.statuses[:failed], Message.statuses[:unsent]].include?(@message.status) %>
+    <%= button_to 'Send', send_message_path(@message), method: :post, form_class: 'send-form', class: 'green-button' %>
+  <% end %>
+  <% if [Message.statuses[:scheduled], Message.statuses[:unsent]].include?(@message.status) %>
+    <%= button_to 'Delete', @message, method: :delete, form_class: 'delete-form', class: 'red-button' %>
+  <% end %>
 </div>
 
 <div class="mt-8">
