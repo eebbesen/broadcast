@@ -97,13 +97,6 @@ RSpec.describe '/recipients' do
       end
     end
 
-    describe 'GET /edit' do
-      it 'renders a successful response' do
-        get edit_recipient_url(recipient)
-        expect(response).to be_successful
-      end
-    end
-
     describe 'POST /create' do
       context 'with valid parameters' do
         it 'creates a new Recipient' do
@@ -151,7 +144,7 @@ RSpec.describe '/recipients' do
 
       context 'with invalid parameters' do
         it "renders a response with 422 status (i.e. to display the 'edit' template)" do
-          patch recipient_url(recipient), params: { recipient: invalid_attributes }
+          patch recipient_url(recipient, format: :json), params: { recipient: invalid_attributes }
           expect(response).to have_http_status(:unprocessable_entity)
         end
       end

@@ -3,7 +3,7 @@
     <% extra = show_content ? 'Content' : ' Phone ' %>
     <% sent_at = show_content ? 'Sent At' : ''%>
     <% [extra, 'Status', 'Error', sent_at].each do |h| %>
-      <div class="header-item font-bold">
+      <div class="header-item font-bold <%= 'col-span-2' if h == 'Content' %>">
         <%= h %>
       </div>
     <% end %>
@@ -14,17 +14,17 @@
       st += i == message_recipients.size ? ' rounded-b ' : ''
     %>
       <div id="<%= dom_id mr %>" class="grid grid-cols-6 border border-slate-300 p-4 <%= st %>">
-        <div>
+        <div class="col-span-2">
           <%= show_content ? mr.message.content : mr.recipient.phone %>
         </div>
-        <div>
+        <div class="col-start-3">
           <%= mr.status %>
         </div>
-        <div>
+        <div class="col-start-4">
           <%= mr.error %>
         </div>
         <% if show_content %>
-          <div>
+          <div class="col-start-5">
             <%= ui_date(mr.created_at) %>
           </div>
         <% end%>
