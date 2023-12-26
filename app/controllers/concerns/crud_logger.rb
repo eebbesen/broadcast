@@ -9,7 +9,6 @@ module CrudLogger
   SUCCESS = TEMPLATE.gsub('TYPE', 'success')
   FAILURE = TEMPLATE.gsub('TYPE', 'failure')
 
-
   included do
     # log request to do something (e.g., create/destroy/edit a resource)
     def log_request(method, data)
