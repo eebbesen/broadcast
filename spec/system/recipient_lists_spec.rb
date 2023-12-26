@@ -8,6 +8,31 @@ RSpec.describe 'RecipientList' do
 
   before { sign_in(user) }
 
+  describe 'is axe-compliant', :js  do
+    let!(:recipient_list) { create(:recipient_list, user:) }
+
+    it 'index' do
+      visit(recipient_lists_path)
+      expect(page).to be_axe_clean
+    end
+
+    it 'show' do
+      visit(recipient_list_path(recipient_list))
+      expect(page).to be_axe_clean
+
+    end
+
+    it 'new' do
+      visit(new_recipient_list_path)
+      expect(page).to be_axe_clean
+    end
+
+    it 'edit' do
+      visit(edit_recipient_list_path(recipient_list))
+      expect(page).to be_axe_clean
+    end
+  end
+
   describe 'from recipient list index' do
     let!(:recipient_list) { create(:recipient_list, user:) }
 
