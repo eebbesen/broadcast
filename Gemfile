@@ -47,6 +47,7 @@ gem 'bootsnap', require: false
 # gem "image_processing", "~> 1.2"
 
 gem 'devise'
+gem 'newrelic_rpm'
 gem 'tailwindcss-rails'
 gem 'twilio-ruby'
 

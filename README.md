@@ -100,6 +100,7 @@ bundle exec reek
   * TWILIO_SID
   * TWILIO_TOKEN
   * TWILIO_PHONE
+  * NEW_RELIC_LICENSE (if monitoring with New Relic)
 * Connect to the database and run migrations
   * If on the free tier you'll have to do this from your local box
 
@@ -110,3 +111,14 @@ This application uses the [axe](https://github.com/dequelabs/axe-core-gems) for 
 * https://dequeuniversity.com/rules/axe/4.8
 * https://www.w3.org/WAI/ER/tools/
 * https://webaim.org/resources/contrastchecker/
+
+# Monitoring
+## New Relic
+You need to populate environment variable `NEW_RELIC_LICENSE`
+### OSX
+New Relic agent can run on OSX, but log integration doesn't seem to be available directly on OSX
+```bash
+brew services run newrelic-infra-agent # use 'start' instead of 'run' to always start the agent
+brew services stop newrelic-infra-agent
+```
+https://docs.newrelic.com/docs/logs/forward-logs/forward-your-logs-using-infrastructure-agent/
