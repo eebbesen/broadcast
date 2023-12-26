@@ -8,7 +8,7 @@ RSpec.describe 'Message' do
   describe 'signed in' do
     before { sign_in(user) }
 
-    describe 'is axe-compliant', :js  do
+    describe 'is axe-compliant', :js do
       let!(:message) { create(:message, user:) }
 
       it 'index' do
@@ -19,7 +19,6 @@ RSpec.describe 'Message' do
       it 'show' do
         visit(message_path(message))
         expect(page).to be_axe_clean
-
       end
 
       it 'new' do

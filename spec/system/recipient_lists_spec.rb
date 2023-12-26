@@ -8,7 +8,7 @@ RSpec.describe 'RecipientList' do
 
   before { sign_in(user) }
 
-  describe 'is axe-compliant', :js  do
+  describe 'is axe-compliant', :js do
     let!(:recipient_list) { create(:recipient_list, user:) }
 
     it 'index' do
@@ -19,7 +19,6 @@ RSpec.describe 'RecipientList' do
     it 'show' do
       visit(recipient_list_path(recipient_list))
       expect(page).to be_axe_clean
-
     end
 
     it 'new' do

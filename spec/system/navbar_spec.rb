@@ -51,8 +51,14 @@ RSpec.describe 'Navbar' do
         expect(page).to have_content('Messages')
 
         click_button('Navigate')
-        expect(page).not_to have_content('Recipient Lists')
         expect(page).not_to have_content('Messages')
+
+        click_button('Navigate')
+        click_link('Messages')
+        expect(page).not_to have_content('Recipient Lists')
+
+        click_button('Navigate')
+        expect(page).to have_content('Recipient Lists')
       end
 
       it 'contents navigate properly', :js do
