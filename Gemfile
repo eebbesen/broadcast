@@ -52,6 +52,7 @@ gem 'twilio-ruby'
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
+  gem 'axe-core-rspec'
   gem 'debug', platforms: %i[mri windows]
   gem 'faker'
   gem 'rspec-rails'

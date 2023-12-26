@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe 'RecipientLists' do
+RSpec.describe 'Navbar' do
   describe 'devise' do
     let(:password) { 'S3kr!T%' }
     let(:user) { create(:user, password:) }

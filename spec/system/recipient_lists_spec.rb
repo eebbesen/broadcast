@@ -3,7 +3,7 @@
 
 require 'rails_helper'
 
-RSpec.describe 'RecipientLists' do
+RSpec.describe 'RecipientList' do
   let(:user) { create(:user) }
 
   before { sign_in(user) }

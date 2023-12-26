@@ -2,11 +2,36 @@
 
 require 'rails_helper'
 
-RSpec.describe 'RecipientLists' do
+RSpec.describe 'Message' do
   let(:user) { create(:user_with_artifacts) }
 
   describe 'signed in' do
     before { sign_in(user) }
+
+    describe 'is axe-compliant', :js  do
+      let!(:message) { create(:message, user:) }
+
+      it 'index' do
+        visit(messages_path)
+        expect(page).to be_axe_clean
+      end
+
+      it 'show' do
+        visit(message_path(message))
+        expect(page).to be_axe_clean
+
+      end
+
+      it 'new' do
+        visit(new_message_path)
+        expect(page).to be_axe_clean
+      end
+
+      it 'edit' do
+        visit(edit_message_path(message))
+        expect(page).to be_axe_clean
+      end
+    end
 
     describe 'message sending' do
       it 'sends message' do
