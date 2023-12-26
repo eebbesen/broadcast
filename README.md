@@ -102,3 +102,11 @@ bundle exec reek
   * TWILIO_PHONE
 * Connect to the database and run migrations
   * If on the free tier you'll have to do this from your local box
+
+
+# A11y
+This application uses the [axe](https://github.com/dequelabs/axe-core-gems) for accessibility checking
+
+* https://dequeuniversity.com/rules/axe/4.8
+* https://www.w3.org/WAI/ER/tools/
+* https://webaim.org/resources/contrastchecker/

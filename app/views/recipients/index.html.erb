@@ -1,7 +1,8 @@
 <%= render partial: 'application/notice', formats: :html %>
 
-<div>
-  <%= link_to 'New Recipient', new_recipient_path, class: 'blue-button' %>
+<div class="nine-grid" id="message-header-container">
+  <%= link_to 'New Recipient', new_recipient_path, class: 'blue-button col-start-1' %>
+  <h1 class="font-bold mt-auto mb-auto col-start-9 text-right text-background-color">Recipients</h1>
 </div>
 
 <div id="recipients-list" class="container grid grid-cols-1 my-6 border border-slate-300 rounded">

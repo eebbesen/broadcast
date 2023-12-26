@@ -6,6 +6,30 @@ require 'rails_helper'
 RSpec.describe 'Recipient' do
   before { sign_in(create(:user)) }
 
+  describe 'is axe-compliant', :js do
+    let!(:recipient) { create(:recipient) }
+
+    it 'index' do
+      visit(recipients_path)
+      expect(page).to be_axe_clean
+    end
+
+    it 'show' do
+      visit(recipient_path(recipient))
+      expect(page).to be_axe_clean
+    end
+
+    it 'new' do
+      visit(new_recipient_path)
+      expect(page).to be_axe_clean
+    end
+
+    it 'edit' do
+      visit(edit_recipient_path(recipient))
+      expect(page).to be_axe_clean
+    end
+  end
+
   describe 'from recipient index' do
     let!(:recipient) { create(:recipient) }
 

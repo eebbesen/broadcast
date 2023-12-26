@@ -10,7 +10,7 @@
     </div>
     <div id="auth-actions" class="col-start-9">
       <%= button_to('Sign Out', destroy_user_session_path,
-                    method: :delete, class: " text-slate-400 hover:text-slate-600") if current_user  %>
+                    method: :delete, id: 'devise-button') if current_user  %>
       <%= 'Log In' unless current_user  %>
     </div>
     <div id="profile">
