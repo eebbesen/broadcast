@@ -2,4 +2,5 @@
 
 # Base class
 class ApplicationController < ActionController::Base
+  include CrudLogger
 end

@@ -21,10 +21,11 @@ class MessageService
       message.status = :sent
       message.sent_at = DateTime.now
     end
+    Rails.logger.info("Sent message #{message.id}")
     message.save!
   end
 
-  def send_to_recipient(message, recipient) # rubocop:disable Metrics/MethodLength
+  def send_to_recipient(message, recipient) # rubocop:disable Metrics/MethodLength,Metrics/AbcSize
     error_code = nil
     mr = MessageRecipient.new(message:, recipient:)
     begin
@@ -38,6 +39,7 @@ class MessageService
       Rails.logger.error("Error sending message #{message.id} to #{recipient}: #{e.message}")
     ensure
       mr.save!
+      Rails.logger.info("Saved message #{message.id} to #{recipient}")
       return error_code # rubocop:disable Lint/EnsureReturn
     end
   end

@@ -22,16 +22,19 @@ class RecipientListsController < ApplicationController
   def edit; end
 
   # POST /recipient_lists or /recipient_lists.json
-  def create # rubocop:disable Metrics/MethodLength
+  def create # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
+    log_request(__callee__, params.merge({ user_id: current_user.id }))
     @recipient_list = RecipientList.new(recipient_list_params.merge(user: current_user))
 
     respond_to do |format|
       if @recipient_list.save
+        log_success(__callee__, params.merge({ user_id: current_user.id }))
         format.html do
           redirect_to recipient_list_url(@recipient_list), notice: 'Recipient list was successfully created.'
         end
         format.json { render :show, status: :created, location: @recipient_list }
       else
+        log_failure(__callee__, params.merge({ user_id: current_user.id }))
         format.html { render :new, status: :unprocessable_entity }
         format.json { render json: @recipient_list.errors, status: :unprocessable_entity }
       end
@@ -39,14 +42,17 @@ class RecipientListsController < ApplicationController
   end
 
   # PATCH/PUT /recipient_lists/1 or /recipient_lists/1.json
-  def update # rubocop:disable Metrics/MethodLength
+  def update # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
     respond_to do |format|
+      log_request(__callee__, params.merge({ user_id: current_user.id }))
       if @recipient_list.update(recipient_list_params)
+        log_success(__callee__, params.merge({ user_id: current_user.id }))
         format.html do
           redirect_to recipient_list_url(@recipient_list), notice: 'Recipient list was successfully updated.'
         end
         format.json { render :show, status: :ok, location: @recipient_list }
       else
+        log_failure(__callee__, params.merge({ user_id: current_user.id }))
         format.html { render :edit, status: :unprocessable_entity }
         format.json { render json: @recipient_list.errors, status: :unprocessable_entity }
       end
@@ -56,6 +62,7 @@ class RecipientListsController < ApplicationController
   # DELETE /recipient_lists/1 or /recipient_lists/1.json
   def destroy
     @recipient_list.destroy!
+    log_success(__callee__, params.merge({ user_id: current_user.id }))
 
     respond_to do |format|
       format.html { redirect_to recipient_lists_url, notice: 'Recipient list was successfully destroyed.' }
