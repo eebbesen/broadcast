@@ -112,7 +112,7 @@ This application uses the [axe](https://github.com/dequelabs/axe-core-gems) for 
 * https://webaim.org/resources/contrastchecker/
 
 # Docker
-By default the app runs in production mode on Docker. This requires a SECRET_KEY_BASE value and the ability to handle https connections.
+By default the app runs in production mode on Docker. This requires a SECRET_KEY_BASE value and the ability to handle https connections. Currently I am not successful in exposing the SSL endpoint in docker -- when puma comes up the SSL endpoint is not listed.
 https://github.com/docker/awesome-compose/blob/master/official-documentation-samples/rails/README.md
 
 ## Run just the webapp image
