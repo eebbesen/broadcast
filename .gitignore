@@ -33,6 +33,8 @@
 
 # Ignore master key for decrypting credentials and more.
 /config/master.key
+/secrets/*
+!/secrets/.keep
 
 coverage
 
@@ -40,3 +42,6 @@ coverage
 !/app/assets/builds/.keep
 
 snippets.md
+
+/config/credentials/production.key
+/config/credentials/*.pem

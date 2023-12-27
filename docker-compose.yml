@@ -1,0 +1,31 @@
+name: broadcast
+services:
+  db:
+    image: postgres
+    volumes:
+      - ./tmp/db:/var/lib/postgresql/data
+    environment:
+      POSTGRES_PASSWORD: password
+  web:
+    build: .
+    command: bash -c "rm -f tmp/pids/server.pid && bundle exec rails s"
+    volumes:
+      - .:/broadcast
+    ports:
+      - "3000:3000"
+      - "3001:3001"
+    depends_on:
+      - db
+    environment:
+      - SECRET_KEY_BASE=${SECRET_KEY_BASE}
+      # - SSL_KEY=${SSL_KEY}
+      # - SSL_CERT=${SSL_CERT}
+    # secrets:
+    #   - RAILS_MASTER_KEY
+    #   - SECRET_KEY_BASE
+
+# secrets:
+#   RAILS_MASTER_KEY:
+#     file: secrets/docker_RAILS_MASTER_KEY
+#   SECRET_KEY_BASE:
+#     file: secrets/docker_RAILS_MASTER_KEY

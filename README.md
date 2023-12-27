@@ -110,3 +110,28 @@ This application uses the [axe](https://github.com/dequelabs/axe-core-gems) for 
 * https://dequeuniversity.com/rules/axe/4.8
 * https://www.w3.org/WAI/ER/tools/
 * https://webaim.org/resources/contrastchecker/
+
+# Docker
+By default the app runs in production mode on Docker. This requires a SECRET_KEY_BASE value and the ability to handle https connections.
+https://github.com/docker/awesome-compose/blob/master/official-documentation-samples/rails/README.md
+
+## Run just the webapp image
+Build the image if not yet done
+```bash
+docker build -t broadcast-dev .
+```
+
+Run the container
+```bash
+docker run --name broadcast -e SECRET_KEY_BASE=$(cat config/master.key) broadcast-dev
+```
+
+## Run app and database using Docker compose
+Create RAILS_MASTER_KEY secret if not yet done
+```bash
+echo $(cat config/master.key) >> secrets/docker_RAILS_MASTER_KEY
+```
+
+```bash
+SECRET_KEY_BASE=$(cat config/master.key) docker compose up
+```
