@@ -131,6 +131,12 @@ mkcert -install
 docker build -t broadcast .
 ```
 
+## Connect to the rails console via the web container
+```bash
+docker exec -it broadcast-web-1 /bin/bash
+bin/rails
+```
+
 ## Run app and database using Docker compose
 ```bash
 SECRET_KEY_BASE=$(cat config/master.key) docker compose up
