@@ -49,11 +49,10 @@ bin/rake assets:precompile
 bin/rails s
 ```
 
-
 ## Tests
 Both system and unit tests are present
 ```bash
-rspec
+bundle exec rspec
 ```
 
 ### Twilio
@@ -112,26 +111,27 @@ This application uses the [axe](https://github.com/dequelabs/axe-core-gems) for 
 * https://webaim.org/resources/contrastchecker/
 
 # Docker
-By default the app runs in production mode on Docker. This requires a SECRET_KEY_BASE value and the ability to handle https connections. Currently I am not successful in exposing the SSL endpoint in docker -- when puma comes up the SSL endpoint is not listed.
+By default the app runs in production mode on Docker, but this implementation is not intended for production use due to security (e.g., exposed PostgreSQL password).
+
+This requires a SECRET_KEY_BASE value and certs for SSL.
+
 https://github.com/docker/awesome-compose/blob/master/official-documentation-samples/rails/README.md
 
-## Run just the webapp image
-Build the image if not yet done
+## Certificates
+Docker-compose will use these
 ```bash
-docker build -t broadcast-dev .
+mkdir -p config/credentials
+cd config/credentials
+mkcert localhost
+mkcert -install
 ```
 
-Run the container
+## Build the image
 ```bash
-docker run --name broadcast -e SECRET_KEY_BASE=$(cat config/master.key) broadcast-dev
+docker build -t broadcast .
 ```
 
 ## Run app and database using Docker compose
-Create RAILS_MASTER_KEY secret if not yet done
-```bash
-echo $(cat config/master.key) >> secrets/docker_RAILS_MASTER_KEY
-```
-
 ```bash
 SECRET_KEY_BASE=$(cat config/master.key) docker compose up
 ```
