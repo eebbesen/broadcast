@@ -11,6 +11,7 @@ include FactoryBot::Syntax::Methods # rubocop:disable Style/MixinUsage
 unless %w[test development].include?(Rails.env)
   throw Exception.new('seeds have sensitive data, do not run in production')
 end
+
 ActiveRecord::Base.transaction do
   # create a user in the console
   User.create!(email: 'you@you.you', password: 'retek01!')

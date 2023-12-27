@@ -49,11 +49,10 @@ bin/rake assets:precompile
 bin/rails s
 ```
 
-
 ## Tests
 Both system and unit tests are present
 ```bash
-rspec
+bundle exec rspec
 ```
 
 ### Twilio
@@ -110,3 +109,35 @@ This application uses the [axe](https://github.com/dequelabs/axe-core-gems) for 
 * https://dequeuniversity.com/rules/axe/4.8
 * https://www.w3.org/WAI/ER/tools/
 * https://webaim.org/resources/contrastchecker/
+
+# Docker
+By default the app runs in production mode on Docker, but this implementation is not intended for production use due to security (e.g., exposed PostgreSQL password).
+
+This requires a SECRET_KEY_BASE value and certs for SSL.
+
+https://github.com/docker/awesome-compose/blob/master/official-documentation-samples/rails/README.md
+
+## Certificates
+Docker-compose will use these
+```bash
+mkdir -p config/credentials
+cd config/credentials
+mkcert localhost
+mkcert -install
+```
+
+## Build the image
+```bash
+docker build -t broadcast .
+```
+
+## Connect to the rails console via the web container
+```bash
+docker exec -it broadcast-web-1 /bin/bash
+bin/rails
+```
+
+## Run app and database using Docker compose
+```bash
+SECRET_KEY_BASE=$(cat config/master.key) docker compose up
+```
