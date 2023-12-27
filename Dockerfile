@@ -63,4 +63,4 @@ ENTRYPOINT ["/rails/bin/docker-entrypoint"]
 EXPOSE 3000
 EXPOSE 3001
 
-CMD ["./bin/rails", "server", "-p 3001"]
+CMD ["./bin/rails", "server"]
