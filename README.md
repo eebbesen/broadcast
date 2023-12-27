@@ -49,11 +49,10 @@ bin/rake assets:precompile
 bin/rails s
 ```
 
-
 ## Tests
 Both system and unit tests are present
 ```bash
-rspec
+bundle exec rspec
 ```
 
 ### Twilio
@@ -68,7 +67,7 @@ TWILIO_PHONE ||= '+15005550006'
 See https://www.twilio.com/docs/iam/test-credentials for details. The `TWILIO_PHONE` when using test credentials needs to be one of a few specific numbers, which is why the value is hard-coded above.
 
 ### System Tests
-#### viewing rendered pages during system tests
+#### Viewing rendered pages during system tests
 When at a breakpoint, enter the following on the console
 ```bash
 save_and_open_page
@@ -122,3 +121,35 @@ brew services run newrelic-infra-agent # use 'start' instead of 'run' to always 
 brew services stop newrelic-infra-agent
 ```
 https://docs.newrelic.com/docs/logs/forward-logs/forward-your-logs-using-infrastructure-agent/
+
+# Docker
+By default the app runs in production mode on Docker, but this implementation is not intended for production use due to security (e.g., exposed PostgreSQL password).
+
+This requires a SECRET_KEY_BASE value and certs for SSL.
+
+https://github.com/docker/awesome-compose/blob/master/official-documentation-samples/rails/README.md
+
+## Certificates
+Docker-compose will use these
+```bash
+mkdir -p config/credentials
+cd config/credentials
+mkcert localhost
+mkcert -install
+```
+
+## Build the image
+```bash
+docker build -t broadcast .
+```
+
+## Connect to the rails console via the web container
+```bash
+docker exec -it broadcast-web-1 /bin/bash
+bin/rails
+```
+
+## Run app and database using Docker compose
+```bash
+SECRET_KEY_BASE=$(cat config/master.key) docker compose up
+```
