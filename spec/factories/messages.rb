@@ -9,7 +9,7 @@ FactoryBot.define do
 
     factory :sent_message do
       # remove apostrophes to eliminate need for extra steps or view tests
-      content { "Parks information: #{Faker::Address.community.gsub("'",'z')}" }
+      content { "Parks information: #{Faker::Address.community.gsub("'", 'z')}" }
       status { :sent }
       sent_at { DateTime.now - 3 }
       message_recipients { [association(:message_recipient)] }
