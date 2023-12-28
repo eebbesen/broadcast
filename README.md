@@ -102,6 +102,7 @@ bundle exec reek
   * NEW_RELIC_LICENSE (if monitoring with New Relic)
   * DD_APM_ENABLED (if monitoring with Datadog)
   * DD_ENV (if monitoring with Datadog)
+  * ROLLBAR_ACCESS_TOKEN (if monitoring with Rollbar)
 * Connect to the database and run migrations
   * If on the free tier you'll have to do this from your local box
 
@@ -119,6 +120,9 @@ You need to populate environment variable `NEW_RELIC_LICENSE`
 
 ## Datadog
 DD_APM_ENABLED=true
+
+## Rollbar
+ROLLBAR_ACCESS_TOKEN
 
 ### OSX
 New Relic agent can run on OSX, but log integration doesn't seem to be available directly on OSX

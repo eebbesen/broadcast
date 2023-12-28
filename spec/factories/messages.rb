@@ -3,7 +3,7 @@
 FactoryBot.define do
   factory :message do
     user
-    content { "Upcoming construction: #{Faker::Address.street_name}" }
+    content { "Upcoming construction: #{Faker::Address.street_name.gsub("'", 'z')}" }
     status { :scheduled }
     recipient_lists { [create(:recipient_list, user:)] }
 
