@@ -8,7 +8,8 @@ FactoryBot.define do
     recipient_lists { [create(:recipient_list, user:)] }
 
     factory :sent_message do
-      content { "Parks information: #{Faker::Address.community}" }
+      # remove apostrophes to eliminate need for extra steps or view tests
+      content { "Parks information: #{Faker::Address.community.gsub("'",'z')}" }
       status { :sent }
       sent_at { DateTime.now - 3 }
       message_recipients { [association(:message_recipient)] }

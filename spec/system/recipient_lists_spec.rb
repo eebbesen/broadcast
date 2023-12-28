@@ -58,7 +58,7 @@ RSpec.describe 'RecipientList' do
     it 'flows properly to create' do
       visit(recipient_lists_path)
       expect(page).to have_current_path(recipient_lists_path)
-      click_link('New Recipient List')
+      click_link('New List')
 
       expect(page).to have_current_path(new_recipient_list_path)
     end
