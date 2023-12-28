@@ -39,12 +39,12 @@ class MessageService
       error_code = e.code
       mr.error = e.message
       mr.status = :failed
-      Rails.logger.error("Error sending message #{message.id} to #{recipient}: #{e.message}")
-      Rollbar.error("Error sending message #{message.id} to #{recipient}: #{e.message}")
+      Rails.logger.error("Error sending message #{message.id} to #{recipient.id}: #{e.message}")
+      Rollbar.error("Error sending message #{message.id} to #{recipient.id}: #{e.message}")
     ensure
       Rollbar.info("Done processing message #{message.id}")
       mr.save!
-      Rails.logger.info("Saved message #{message.id} to #{recipient}")
+      Rails.logger.info("Saved message #{message.id} to #{recipient.id}")
       return error_code # rubocop:disable Lint/EnsureReturn
     end
   end
