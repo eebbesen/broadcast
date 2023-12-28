@@ -12,7 +12,7 @@ class MessageService
     @twilio_client = client
   end
 
-  def send_message(message)
+  def send_message(message) # rubocop:disable Metrics/MethodLength
     return false unless message.validate_sendable && message.valid?
 
     error_codes = message.list_recipients.map { |r| send_to_recipient(message, r) }
@@ -24,6 +24,7 @@ class MessageService
       message.sent_at = DateTime.now
     end
     Rails.logger.info("Sent message #{message.id}")
+    Rollbar.info("Sent message #{message.id}")
     message.save!
   end
 
@@ -39,7 +40,9 @@ class MessageService
       mr.error = e.message
       mr.status = :failed
       Rails.logger.error("Error sending message #{message.id} to #{recipient}: #{e.message}")
+      Rollbar.error("Error sending message #{message.id} to #{recipient}: #{e.message}")
     ensure
+      Rollbar.info("Done processing message #{message.id}")
       mr.save!
       Rails.logger.info("Saved message #{message.id} to #{recipient}")
       return error_code # rubocop:disable Lint/EnsureReturn

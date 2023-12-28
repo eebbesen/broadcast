@@ -11,6 +11,8 @@ class MessagesController < ApplicationController
   def index
     return unless current_user
 
+    Rollbar.info("Home page accessed by #{current_user.id}")
+
     @messages = Message.where(user: current_user).includes(:recipients)
   end
 

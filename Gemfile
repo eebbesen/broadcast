@@ -50,6 +50,7 @@ gem 'ddtrace', require: 'ddtrace/auto_instrument'
 gem 'devise'
 gem 'newrelic-infinite_tracing'
 gem 'newrelic_rpm'
+gem 'rollbar'
 gem 'tailwindcss-rails'
 gem 'twilio-ruby'
 
