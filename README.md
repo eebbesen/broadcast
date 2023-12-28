@@ -100,6 +100,8 @@ bundle exec reek
   * TWILIO_TOKEN
   * TWILIO_PHONE
   * NEW_RELIC_LICENSE (if monitoring with New Relic)
+  * DD_APM_ENABLED (if monitoring with Datadog)
+  * DD_ENV (if monitoring with Datadog)
 * Connect to the database and run migrations
   * If on the free tier you'll have to do this from your local box
 
@@ -114,6 +116,10 @@ This application uses the [axe](https://github.com/dequelabs/axe-core-gems) for 
 # Monitoring
 ## New Relic
 You need to populate environment variable `NEW_RELIC_LICENSE`
+
+## Datadog
+DD_APM_ENABLED=true
+
 ### OSX
 New Relic agent can run on OSX, but log integration doesn't seem to be available directly on OSX
 ```bash
