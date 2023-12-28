@@ -165,5 +165,6 @@ bin/rails
 
 ## Run app and database using Docker compose
 ```bash
-SECRET_KEY_BASE=$(cat config/master.key) docker compose up
+
+DOCKER_SSL=1 SECRET_KEY_BASE=$(cat config/master.key) docker compose up
 ```
