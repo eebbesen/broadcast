@@ -2,6 +2,8 @@
 
 # Service to connect application to SMS sending
 class MessageService
+  include ::NewRelic::Agent::MethodTracer
+
   # Fatal errors indicate auth or other account-related issue
   #  that will prevent sending to every recipient
   FATAL_ERRORS = [20003, 20404].freeze # rubocop:disable Style/NumericLiterals
@@ -55,4 +57,7 @@ class MessageService
     message_recipient.last_status_check = DateTime.now
     message_recipient.save!
   end
+
+  add_method_tracer :send_to_recipient, 'send_to_recipient'
+  add_method_tracer :update_recipient_status, 'update_recipient_status'
 end

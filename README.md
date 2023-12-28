@@ -122,6 +122,10 @@ brew services stop newrelic-infra-agent
 ```
 https://docs.newrelic.com/docs/logs/forward-logs/forward-your-logs-using-infrastructure-agent/
 
+```bash
+sudo NEW_RELIC_API_KEY=<API_KEY> NEW_RELIC_ACCOUNT_ID=<<ACCOUNT_ID> /usr/local/bin/newrelic install -n logs-integration
+```
+
 # Docker
 By default the app runs in production mode on Docker, but this implementation is not intended for production use due to security (e.g., exposed PostgreSQL password).
 
