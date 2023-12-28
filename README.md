@@ -67,7 +67,7 @@ TWILIO_PHONE ||= '+15005550006'
 See https://www.twilio.com/docs/iam/test-credentials for details. The `TWILIO_PHONE` when using test credentials needs to be one of a few specific numbers, which is why the value is hard-coded above.
 
 ### System Tests
-#### viewing rendered pages during system tests
+#### Viewing rendered pages during system tests
 When at a breakpoint, enter the following on the console
 ```bash
 save_and_open_page
@@ -99,6 +99,7 @@ bundle exec reek
   * TWILIO_SID
   * TWILIO_TOKEN
   * TWILIO_PHONE
+  * NEW_RELIC_LICENSE (if monitoring with New Relic)
 * Connect to the database and run migrations
   * If on the free tier you'll have to do this from your local box
 
@@ -109,6 +110,21 @@ This application uses the [axe](https://github.com/dequelabs/axe-core-gems) for 
 * https://dequeuniversity.com/rules/axe/4.8
 * https://www.w3.org/WAI/ER/tools/
 * https://webaim.org/resources/contrastchecker/
+
+# Monitoring
+## New Relic
+You need to populate environment variable `NEW_RELIC_LICENSE`
+### OSX
+New Relic agent can run on OSX, but log integration doesn't seem to be available directly on OSX
+```bash
+brew services run newrelic-infra-agent # use 'start' instead of 'run' to always start the agent
+brew services stop newrelic-infra-agent
+```
+https://docs.newrelic.com/docs/logs/forward-logs/forward-your-logs-using-infrastructure-agent/
+
+```bash
+sudo NEW_RELIC_API_KEY=<API_KEY> NEW_RELIC_ACCOUNT_ID=<<ACCOUNT_ID> /usr/local/bin/newrelic install -n logs-integration
+```
 
 # Docker
 By default the app runs in production mode on Docker, but this implementation is not intended for production use due to security (e.g., exposed PostgreSQL password).

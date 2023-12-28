@@ -2,12 +2,14 @@
 
 # Recipient Lists
 class RecipientListsController < ApplicationController
+  include ::NewRelic::Agent::MethodTracer
+
   before_action :set_recipient_list, only: %i[show edit update destroy]
   before_action :authenticate_user!
 
   # GET /recipient_lists or /recipient_lists.json
   def index
-    @recipient_lists = RecipientList.where(user: current_user)
+    @recipient_lists = RecipientList.where(user: current_user).includes(:recipients_recipient_lists)
   end
 
   # GET /recipient_lists/1 or /recipient_lists/1.json
@@ -83,4 +85,6 @@ class RecipientListsController < ApplicationController
   def recipient_list_params
     params.require(:recipient_list).permit(:name, :user_id)
   end
+
+  add_method_tracer :index, 'index'
 end

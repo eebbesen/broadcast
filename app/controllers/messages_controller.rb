@@ -2,6 +2,8 @@
 
 # Messages Controller
 class MessagesController < ApplicationController
+  include ::NewRelic::Agent::MethodTracer
+
   before_action :set_message, only: %i[show edit update destroy]
   before_action :authenticate_user!
 
@@ -9,7 +11,7 @@ class MessagesController < ApplicationController
   def index
     return unless current_user
 
-    @messages = Message.where(user: current_user)
+    @messages = Message.where(user: current_user).includes(:recipients)
   end
 
   # GET /messages/1 or /messages/1.json
@@ -100,11 +102,14 @@ class MessagesController < ApplicationController
   def set_message
     return unless current_user
 
-    @message = Message.where(user: current_user).find(params[:id])
+    @message = Message.where(user: current_user).includes(:recipients).find(params[:id])
   end
 
   # Only allow a list of trusted parameters through.
   def message_params
     params.require(:message).permit(:content, :status, :user_id, recipient_list_ids: [])
   end
+
+  add_method_tracer :send_message, 'send_message'
+  add_method_tracer :index, 'index'
 end

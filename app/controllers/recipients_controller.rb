@@ -2,12 +2,14 @@
 
 # Recipients Controller
 class RecipientsController < ApplicationController
+  include ::NewRelic::Agent::MethodTracer
+
   before_action :set_recipient, only: %i[show edit update destroy]
   before_action :authenticate_user!
 
   # GET /recipients or /recipients.json
   def index
-    @recipients = Recipient.all
+    @recipients = Recipient.includes(:messages)
   end
 
   # GET /recipients/1 or /recipients/1.json
@@ -69,11 +71,13 @@ class RecipientsController < ApplicationController
 
   # Use callbacks to share common setup or constraints between actions.
   def set_recipient
-    @recipient = Recipient.find(params[:id])
+    @recipient = Recipient.includes(:messages).find(params[:id])
   end
 
   # Only allow a list of trusted parameters through.
   def recipient_params
     params.require(:recipient).permit(:phone, :status)
   end
+
+  add_method_tracer :index, 'index'
 end
