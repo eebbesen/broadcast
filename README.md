@@ -120,6 +120,7 @@ You need to populate environment variable `NEW_RELIC_LICENSE`
 
 ## Datadog
 DD_APM_ENABLED=true
+DD_TRACE_ENABLED=true
 
 ## Rollbar
 ROLLBAR_ACCESS_TOKEN
@@ -156,7 +157,8 @@ mkcert -install
 `DOCKER_SSL` controls whether puma will expose an SSL endpoint. Set this true when running the Dockerized version locally -- hosters like Render may do this automatically.
 ```bash
 docker compose build
-DOCKER_SSL=1 SECRET_KEY_BASE=$(cat config/master.key) docker compose up
+
+DOCKER_SSL=1 SKIP_DATADOG=true SECRET_KEY_BASE=$(cat config/master.key) docker compose up
 ```
 
 ## Or just uild the image directly
@@ -169,4 +171,3 @@ docker build -t broadcast .
 docker exec -it broadcast-web-1 /bin/bash
 bin/rails
 ```
-
