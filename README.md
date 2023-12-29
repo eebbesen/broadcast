@@ -163,5 +163,4 @@ docker build -t broadcast .
 ## Connect to the rails console via the web container
 ```bash
 docker exec -it broadcast-web-1 /bin/bash
-bin/rails
 ```
