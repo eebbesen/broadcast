@@ -19,14 +19,14 @@ services:
     depends_on:
       - db
     environment:
-      - SECRET_KEY_BASE=${SECRET_KEY_BASE}
+      - SECRET_KEY_BASE
       - BROADCAST_DATABASE_NAME=postgres
       - BROADCAST_DATABASE_USERNAME=postgres
       - BROADCAST_DATABASE_PASSWORD=password
       - BROADCAST_DATABASE_HOST=db
-      - DOCKER_SSL=${DOCKER_SSL}
-      - NEW_RELIC_LICENSE=${NEW_RELIC_LICENSE}
-      - ROLLBAR_ACCESS_TOKEN=${ROLLBAR_ACCESS_TOKEN}
+      - DOCKER_SSL
+      - NEW_RELIC_LICENSE
+      - ROLLBAR_ACCESS_TOKEN
 
 # for Swarm use secrets
     # secrets:
