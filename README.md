@@ -120,6 +120,7 @@ You need to populate environment variable `NEW_RELIC_LICENSE`
 
 ## Datadog
 DD_APM_ENABLED=true
+DD_TRACE_ENABLED=true
 
 ## Rollbar
 ROLLBAR_ACCESS_TOKEN
@@ -144,7 +145,7 @@ This requires a SECRET_KEY_BASE value and certs for SSL.
 https://github.com/docker/awesome-compose/blob/master/official-documentation-samples/rails/README.md
 
 ## Certificates
-Docker-compose will use these
+Docker-compose will use `localhost-key.pem`	and `localhost.pem`. Update filesnames in `puma.rb` if so inclined.
 ```bash
 mkdir -p config/credentials
 cd config/credentials
@@ -152,7 +153,15 @@ mkcert localhost
 mkcert -install
 ```
 
-## Build the image
+## Build then run app and database using Docker compose
+`DOCKER_SSL` controls whether puma will expose an SSL endpoint. Set this true when running the Dockerized version locally -- hosters like Render may do this automatically.
+```bash
+docker compose build
+
+DOCKER_SSL=1 SKIP_DATADOG=true SECRET_KEY_BASE=$(cat config/master.key) docker compose up
+```
+
+## Or just uild the image directly
 ```bash
 docker build -t broadcast .
 ```
@@ -161,10 +170,4 @@ docker build -t broadcast .
 ```bash
 docker exec -it broadcast-web-1 /bin/bash
 bin/rails
-```
-
-## Run app and database using Docker compose
-```bash
-
-DOCKER_SSL=1 SECRET_KEY_BASE=$(cat config/master.key) docker compose up
 ```
